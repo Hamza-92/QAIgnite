@@ -4,21 +4,65 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration {
     public function up(): void
     {
+        Schema::create('organizations', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('subdomain')->unique()->nullable();
+            $table->string('url')->unique()->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+        });
+
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->boolean('deletable')->default(true);
+            $table->boolean('default')->default(false);
+            $table->json('permissions')->nullable();
+            $table->foreignId('organization_id')->constrained('organizations');
+            $table->timestamps();
+        });
+
+        Schema::create('role_has_permissions', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('role_id')->constrained('roles');
+            $table->foreignId('permission_id')->constrained('permissions');
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('avatar')->nullable();
+            $table->string('default_project')->nullable();
+            $table->foreignId('organization_id')->constrained('organizations');
+            $table->foreignId('role_id')->constrained('roles');
+            $table->boolean('is_verified')->default(false);
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('invited_users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->foreignId('organization_id')->constrained('organizations');
+            $table->foreignId('role_id')->constrained('roles');
+            $table->string('invitation_token')->unique();
+            $table->boolean('is_verified')->default(false);
+            $table->timestamp('created_at');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -37,12 +81,14 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('roles');
+        Schema::dropIfExists('role_has_permissions');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('invited_users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
