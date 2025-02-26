@@ -20,4 +20,12 @@ class Organization extends Model
         return $this->hasMany(Role::class);
     }
 
+    public function invitations() {
+        return $this->hasMany(Invitation::class);
+    }
+
+    public function projects() {
+        return $this->hasMany(Project::class);
+    }
+
 }

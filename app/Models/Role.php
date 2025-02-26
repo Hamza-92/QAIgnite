@@ -35,4 +35,9 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
 }
