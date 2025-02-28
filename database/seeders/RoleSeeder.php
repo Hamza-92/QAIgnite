@@ -19,42 +19,48 @@ class RoleSeeder extends Seeder
                 'description' => 'Administrator',
                 'deletable' => false,
                 'default' => true,
-                'organization_id' => 1
+                'organization_id' => 1,
+                'permissions' => []
             ],
             [
                 'name' => 'admin_tenant',
                 'description' => 'Tenant Administrator',
                 'deletable' => false,
                 'default' => true,
-                'organization_id' => 1
+                'organization_id' => 1,
+                'permissions' => []
             ],
             [
                 'name' => 'qa_manager',
                 'description' => 'QA Manager',
                 'deletable' => false,
                 'default' => true,
-                'organization_id' => 1
+                'organization_id' => 1,
+                'permissions' => []
             ],
             [
                 'name' => 'qa_tester',
                 'description' => 'QA Staff',
                 'deletable' => false,
                 'default' => true,
-                'organization_id' => 1
+                'organization_id' => 1,
+                'permissions' => []
             ],
             [
                 'name' => 'developer',
                 'description' => 'Developer',
                 'deletable' => false,
                 'default' => true,
-                'organization_id' => 1
+                'organization_id' => 1,
+                'permissions' => []
             ],
             [
                 'name' => 'guest',
                 'description' => 'Guest',
                 'deletable' => false,
                 'default' => true,
-                'organization_id' => 1
+                'organization_id' => 1,
+                'permissions' => []
             ],
         ];
 

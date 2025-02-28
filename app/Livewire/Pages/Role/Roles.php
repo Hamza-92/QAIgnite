@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Livewire\Pages\Role;
+
+use App\Models\Role;
+use Livewire\Component;
+use Livewire\WithPagination;
+
+class Roles extends Component
+{
+    use WithPagination;
+
+    public $search = '';
+    public $sortBy = 'name';
+    public $sortDir = 'ASC';
+    public $perPage = 20;
+
+    protected $listeners = ['roleDeleted' => '$refresh'];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function setSortBy($column)
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDir = $this->sortDir === 'ASC' ? 'DESC' : 'ASC';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDir = 'ASC';
+        }
+    }
+
+    public function getSortColumn()
+    {
+        return $this->sortBy === 'name' ? 'name' : 'users_count';
+    }
+
+
+    public function render()
+    {
+        $roles = Role::withCount('users')
+            ->where(function ($query) {
+                $query->where('organization_id', auth()->user()->organization_id)
+                    ->orWhere('default', true);
+            })
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->whereNot('id', 1)
+            ->orderBy($this->getSortColumn(), $this->sortDir)
+            ->paginate($this->perPage);
+
+
+        return view('livewire.pages.role.roles', compact('roles'));
+    }
+}

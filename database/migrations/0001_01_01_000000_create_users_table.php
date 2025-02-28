@@ -15,12 +15,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-        });
-
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -30,12 +24,6 @@ return new class extends Migration {
             $table->json('permissions')->nullable();
             $table->foreignId('organization_id')->constrained('organizations');
             $table->timestamps();
-        });
-
-        Schema::create('role_has_permissions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('role_id')->constrained('roles');
-            $table->foreignId('permission_id')->constrained('permissions');
         });
 
         Schema::create('users', function (Blueprint $table) {
@@ -84,9 +72,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('organizations');
-        Schema::dropIfExists('permissions');
         Schema::dropIfExists('roles');
-        Schema::dropIfExists('role_has_permissions');
         Schema::dropIfExists('users');
         Schema::dropIfExists('invited_users');
         Schema::dropIfExists('password_reset_tokens');
