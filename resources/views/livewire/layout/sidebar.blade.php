@@ -46,10 +46,10 @@ new class extends Component
             </x-nav-link>
 
             {{-- Project Management --}}
-            {{-- <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')  || request()->routeIs('projects.archive')" wire:navigate>
+            <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')  || request()->routeIs('projects.archive')" wire:navigate>
                 <i class="fa-solid fa-folder"></i>
                 <span x-show="open">Project Management</span>
-            </x-nav-link> --}}
+            </x-nav-link>
 
             {{-- Build Management --}}
             {{-- <x-nav-link :href="route('builds')" :active="request()->routeIs('builds')" wire:navigate>

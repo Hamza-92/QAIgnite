@@ -25,6 +25,8 @@ class Project extends Model
         'os' => 'array',
         'devices' => 'array',
         'browsers' => 'array',
+        'created_at' => 'datetime:d-m-Y H:i:s',
+        'updated_at' => 'datetime:d-m-Y H:i:s',
     ];
 
     public function organization() {

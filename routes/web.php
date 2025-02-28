@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Pages\Project\ArchiveProjects;
+use App\Livewire\Pages\Project\Projects;
 use App\Livewire\Pages\Role\CreateRole;
 use App\Livewire\Pages\Role\Roles;
 use App\Livewire\Pages\User\AcceptInvitation;
@@ -18,6 +20,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Role Management
     Route::get('roles', Roles::class)->name('roles');
     Route::get('roles/create', CreateRole::class)->name('create-role');
+
+    // Project Management
+    Route::get('projects', Projects::class)->name('projects');
+    Route::get('projects/archive', ArchiveProjects::class)->name('projects.archive');
 });
 
 

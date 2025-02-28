@@ -115,7 +115,7 @@ class Users extends Component
 
         Mail::to($invitation['email'])->send(new InvitationMail($invitation));
 
-        Toaster::success('Invitation resent successfully.');
+        Toaster::success('Invitation mail sent successfully.');
     }
 
     public function createInvitation()

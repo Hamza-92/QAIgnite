@@ -139,7 +139,8 @@
                                         <button class="px-2 py-1" type="button"
                                             wire:click='resendMail({{ $invitation->id }})'
                                             @mouseenter="tooltip = true" @mouseleave="tooltip = false">
-                                            <i class="fa-solid fa-retweet"></i>
+                                            <i wire:loading wire:target='resendMail({{ $invitation->id }})' class="fa-solid fa-spinner fa-spin"></i>
+                                            <i wire:loading.remove wire:target='resendMail({{ $invitation->id }})' class="fa-solid fa-retweet"></i>
                                         </button>
                                         <div x-show="tooltip" x-transition:enter="transition ease-out duration-300"
                                             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"

@@ -40,7 +40,7 @@
             </header>
 
             {{-- Page Content --}}
-            <main class="w-full h-full overflow-auto dark:bg-gray-900 dark:text-white ">
+            <main class="w-full h-full overflow-auto">
                 {{ $slot }}
             </main>
         </div>
