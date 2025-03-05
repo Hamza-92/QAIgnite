@@ -1,4 +1,10 @@
-<button
-    {{ $attributes->merge(['type' => 'submit', 'class' => 'inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-300 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-blue-900 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150']) }}>
+<button type="{{ $type }}" id="{{ $model }}"
+    @if (strlen($model) > 0 && $type != 'submit')
+    wire:click="{{ $model }}"
+
+    @endif
+    class="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-gray-100 dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer {{ $class }}"
+    {{ $attributes }}>
     {{ $slot }}
+    <i wire:loading wire:target="{{ $model }}" class="fa-solid fa-spinner fa-spin"></i>
 </button>

@@ -7,12 +7,12 @@
 
     <!-- Modal -->
     <div x-show="showModal" @keydown.escape.window="showModal = false"
-        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
+        class="fixed inset-0 flex items-center justify-center bg-gray-900/50 z-50 transition-opacity duration-300"
         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
 
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96" @click.away="showModal = false">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96">
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $title }}</h2>
             <p class="text-gray-600 dark:text-gray-300 mt-2">{{ $message }}</p>
 

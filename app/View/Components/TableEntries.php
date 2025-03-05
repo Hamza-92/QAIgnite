@@ -9,18 +9,16 @@ use Illuminate\View\Component;
 class TableEntries extends Component
 {
     public $entries;
+    public $class;
 
-    /**
-     * Create a new component instance.
-     */
-    public function __construct($entries)
+
+    public function __construct($entries, $class = '')
     {
         $this->entries = $entries;
+        $this->class = $class;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
+
     public function render(): View|Closure|string
     {
         return view('components.table-entries');

@@ -1,1 +1,1 @@
-<img class="w-32" src="{{asset('storage/logo/qaignite-logo.png')}}" alt="">
+<img class="w-32" src="{{asset('storage/images/logo/qaignite-logo.png')}}" alt="">

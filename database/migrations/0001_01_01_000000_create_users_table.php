@@ -42,17 +42,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('invited_users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->foreignId('organization_id')->constrained('organizations');
-            $table->foreignId('role_id')->constrained('roles');
-            $table->string('invitation_token')->unique();
-            $table->boolean('is_verified')->default(false);
-            $table->timestamp('created_at');
-        });
-
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -74,7 +63,6 @@ return new class extends Migration {
         Schema::dropIfExists('organizations');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('invited_users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
