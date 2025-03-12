@@ -230,7 +230,7 @@
     {{-- User creation form --}}
     <div x-show="$wire.createUser || $wire.editUser"
         class="absolute top-0 left-0 w-full h-full bg-gray-900/50 dark:bg-gray-100/50" id="form">
-        <div class="absolute w-1/2 h-full top-0 right-0 bg-white dark:bg-gray-900">
+        <div class="absolute w-full h-full sm:w-auto sm:w-[640px] md:w-[720px] top-0 right-0 bg-white dark:bg-gray-900 overflow-auto">
             <div
                 class="px-8 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700 cursor-pointer">
                 <h3 class="text-lg" x-text="$wire.createUser ? 'Create New User' : 'Edit User'"></h3>
@@ -238,7 +238,7 @@
             </div>
             <div class="flex flex-col p-8">
                 <form wire:submit.prevent='save'>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid sm:grid-cols-2 gap-4">
                         {{-- Name Field --}}
                         <x-input-field model='name' label='Name' type='text' required='true' />
 

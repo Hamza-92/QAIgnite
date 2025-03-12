@@ -9,8 +9,8 @@
         x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
-        class="absolute z-50 text-sm px-3 py-2 rounded-lg shadow-lg max-w-xs whitespace-nowrap
-               bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700"
+        class="absolute z-50 text-sm px-2 py-1 shadow-lg max-w-xs whitespace-nowrap
+               bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 border border-gray-500"
         :class="{
             'left-1/2 transform -translate-x-1/2 -top-12': '{{ $position }}' === 'top',
             'left-1/2 transform -translate-x-1/2 top-8': '{{ $position }}' === 'bottom',
@@ -20,7 +20,7 @@
         {{ $message }}
 
         <!-- Tooltip Arrow -->
-        <span class="absolute w-2 h-2 transform rotate-45 bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700"
+        <span class="absolute w-2 h-2 transform rotate-45 bg-gray-100 dark:bg-gray-800"
             :class="{
                 'top-full left-1/2 -translate-x-1/2 mt-[-4px]': '{{ $position }}' === 'top',
                 'bottom-full left-1/2 -translate-x-1/2 mb-[-4px]': '{{ $position }}' === 'bottom',

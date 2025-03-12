@@ -21,26 +21,44 @@
         <!-- Navigation Links -->
         <nav class="flex-1 flex flex-col p-4 space-y-2 overflow-y-auto">
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                <i class="fa-solid fa-house"></i>
-                <span x-show="open">Dashboard</span>
+            <i class="fa-solid fa-tachometer-alt"></i>
+            <span x-show="open">Dashboard</span>
             </x-nav-link>
 
             {{-- Project Management --}}
             <x-nav-link :href="route('projects')" :active="request()->routeIs('projects') | request()->routeIs('projects.archive')" wire:navigate>
-                <i class="fa-solid fa-folder"></i>
-                <span x-show="open">Project Management</span>
+            <i class="fa-solid fa-project-diagram"></i>
+            <span x-show="open">Project Management</span>
+            </x-nav-link>
+
+            {{-- Team Management --}}
+            <x-nav-link :href="route('team')" :active="request()->routeIs('team')" wire:navigate>
+            <i class="fa-solid fa-users"></i>
+            <span x-show="open">Team Management</span>
+            </x-nav-link>
+
+            {{-- Builds Management --}}
+            <x-nav-link :href="route('builds')" :active="request()->routeIs('builds')" wire:navigate>
+            <i class="fa-solid fa-cogs"></i>
+            <span x-show="open">Build Management</span>
+            </x-nav-link>
+
+            {{-- Modules Management --}}
+            <x-nav-link :href="route('modules')" :active="request()->routeIs('modules')" wire:navigate>
+            <i class="fa-solid fa-cube"></i>
+            <span x-show="open">Module Management</span>
             </x-nav-link>
 
             {{-- Role Management --}}
             <x-nav-link :href="route('roles')" :active="request()->routeIs('roles') | request()->routeIs('role.create')  | request()->routeIs('role.edit')" wire:navigate>
-                <i class="fa-solid fa-user"></i>
-                <span x-show="open">Role Management</span>
+            <i class="fa-solid fa-user-shield"></i>
+            <span x-show="open">Role Management</span>
             </x-nav-link>
 
             {{-- User Management --}}
             <x-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
-                <i class="fa-solid fa-user"></i>
-                <span x-show="open">User Management</span>
+            <i class="fa-solid fa-user-cog"></i>
+            <span x-show="open">User Management</span>
             </x-nav-link>
         </nav>
 

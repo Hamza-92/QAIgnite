@@ -5,7 +5,7 @@
         @endif
     </label>
     <div class="relative">
-        <select wire:model='{{$model}}' type="{{$type}}" name="{{$model}}" id="{{$model}}"
+        <select wire:model='{{$model}}' name="{{$model}}" id="{{$model}}"
             class="appearance-none px-4 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
             {{$slot}}
         </select>

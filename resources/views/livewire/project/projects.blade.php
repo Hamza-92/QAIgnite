@@ -1,7 +1,7 @@
 <div>
     <div class="px-8 py-4 flex-wrap gap-2 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
         <button x-on:click="$wire.createProject = true"
-            class="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-md"
+            class="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-md cursor-pointer"
             type="button">Create Project</button>
         <a href="{{ route('projects.archive') }}"
             class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-md cursor-pointer"
@@ -107,7 +107,7 @@
                                                     class="px-1 pr-2" type="button">
                                                     <i wire:loading.remove
                                                         wire:target='removeType({{ $index }})'
-                                                        class="fa-solid fa-xmark"></i>
+                                                        class="fa-solid fa-xmark cursor-pointer"></i>
                                                     <i wire:loading wire:target='removeType({{ $index }})'
                                                         class="fa-solid fa-spinner fa-spin"></i>
                                                 </button>
@@ -128,27 +128,27 @@
                                     x-transition:leave="transition ease-in duration-75"
                                     x-transition:leave-start="opacity-100 scale-100"
                                     x-transition:leave-end="opacity-0 scale-95"
-                                    class="absolute z-10 mt-2 w-full shadow-lg bg-gray-100 dark:bg-gray-800 max-h-72 overflow-auto">
+                                    class="absolute z-10 mt-2 w-full shadow-lg bg-gray-100 max-h-72 overflow-auto">
 
                                     <div>
                                         <button id="" type="button" wire:click = 'addType("Web")'
                                             @click = 'open_model = false'
-                                            class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                            class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                             Web
                                         </button>
                                         <button id="" type="button"
                                             wire:click = 'addType("Responsive Web")' @click = 'open_model = false'
-                                            class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                            class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                             Responsive Web
                                         </button>
                                         <button id="" type="button"
                                             wire:click = 'addType("Native Mobile App")' @click = 'open_model = false'
-                                            class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                            class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                             Native Mobile App
                                         </button>
                                         <button id="" type="button" wire:click = 'addType("Desktop")'
                                             @click = 'open_model = false'
-                                            class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                            class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                             Desktop
                                         </button>
 
@@ -159,8 +159,9 @@
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
+
                         {{-- Project Status --}}
-                        <div class="flex flex-col gap-1">
+                        <div class="flex flex-col gap-1" x-show='$wire.editProject'>
                             <label>Status</label>
                             <div class="relative flex items-center">
                                 <select wire:model='status' name="status" id="status"
@@ -185,14 +186,14 @@
                             <span class="px-2 py-1 bg-white font-bold text-gray-900"
                                 x-text='open ? "-" : "+"'>+</span>
                         </div>
-                        <div x-show="open" class="grid grid-cols-2 gap-4 mt-4">
+                        <div x-show="open" class="grid sm:grid-cols-2 gap-4 mt-4">
                             {{-- OS --}}
                             <div class="flex flex-col gap-1">
                                 <label>OS</label>
                                 <div x-data='{open_model : false}' class="relative w-full"
                                     @click.outside="open_model = false" @close.stop="open_model = false">
                                     <div @click.stop="open_model = !open_model"
-                                        class="w-full h-10 flex items-center rounded-md border dark:border-gray-700 px-4 py-1 cursor-pointer">
+                                        class="w-full h-10 flex items-center rounded-md border dark:border-gray-700 px-4 py-1">
                                         <div class="w-full flex items-center justify-start gap-2 flex-wrap">
                                             @forelse ($os as $index => $os_type)
                                                 <div class="bg-gray-200 dark:bg-gray-800 rounded-sm py-1 ">
@@ -202,7 +203,7 @@
                                                         class="px-1 pr-2" type="button">
                                                         <i wire:loading.remove
                                                             wire:target='removeOs({{ $index }})'
-                                                            class="fa-solid fa-xmark"></i>
+                                                            class="fa-solid fa-xmark cursor-pointer"></i>
                                                         <i wire:loading wire:target='removeOs({{ $index }})'
                                                             class="fa-solid fa-spinner fa-spin"></i>
                                                     </button>
@@ -228,32 +229,32 @@
                                         <div>
                                             <button id="" type="button" wire:click = 'addOs("Android")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Android
                                             </button>
                                             <button id="" type="button" wire:click = 'addOs("IOS")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 IOS
                                             </button>
                                             <button id="" type="button" wire:click = 'addOs("Linux")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Linux
                                             </button>
                                             <button id="" type="button" wire:click = 'addOs("Mac")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Mac
                                             </button>
                                             <button id="" type="button" wire:click = 'addOs("Ubunto")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Ubunto
                                             </button>
                                             <button id="" type="button" wire:click = 'addOs("Windows")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Windows
                                             </button>
                                         </div>
@@ -269,7 +270,7 @@
                                 <div x-data='{open_model : false}' class="relative w-full"
                                     @click.outside="open_model = false" @close.stop="open_model = false">
                                     <div @click.stop="open_model = !open_model"
-                                        class="w-full h-10 flex items-center rounded-md border dark:border-gray-700 px-4 py-1 cursor-pointer">
+                                        class="w-full h-10 flex items-center rounded-md border dark:border-gray-700 px-4 py-1">
                                         <div class="w-full flex items-center justify-start gap-2 flex-wrap">
                                             @forelse ($devices as $index => $device)
                                                 <div class="bg-gray-200 dark:bg-gray-800 rounded-sm py-1 ">
@@ -279,7 +280,7 @@
                                                         class="px-1 pr-2" type="button">
                                                         <i wire:loading.remove
                                                             wire:target='removeDevice({{ $index }})'
-                                                            class="fa-solid fa-xmark"></i>
+                                                            class="fa-solid fa-xmark cursor-pointer"></i>
                                                         <i wire:loading
                                                             wire:target='removeDevice({{ $index }})'
                                                             class="fa-solid fa-spinner fa-spin"></i>
@@ -306,22 +307,22 @@
                                         <div>
                                             <button id="" type="button" wire:click = 'addDevice("Iphone")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Iphone
                                             </button>
                                             <button id="" type="button" wire:click = 'addDevice("Oppo")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Oppo
                                             </button>
                                             <button id="" type="button" wire:click = 'addDevice("Samsung")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Samsung
                                             </button>
                                             <button id="" type="button" wire:click = 'addDevice("Vivo")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Vivo
                                             </button>
                                         </div>
@@ -337,7 +338,7 @@
                                 <div x-data='{open_model : false}' class="relative w-full"
                                     @click.outside="open_model = false" @close.stop="open_model = false">
                                     <div @click.stop="open_model = !open_model"
-                                        class="w-full h-10 flex items-center rounded-md border dark:border-gray-700 px-4 py-1 cursor-pointer">
+                                        class="w-full h-10 flex items-center rounded-md border dark:border-gray-700 px-4 py-1">
                                         <div class="w-full flex items-center justify-start gap-2 flex-wrap">
                                             @forelse ($browsers as $index => $browser)
                                                 <div class="bg-gray-200 dark:bg-gray-800 rounded-sm py-1 ">
@@ -347,7 +348,7 @@
                                                         class="px-1 pr-2" type="button">
                                                         <i wire:loading.remove
                                                             wire:target='removeBrowser({{ $index }})'
-                                                            class="fa-solid fa-xmark"></i>
+                                                            class="fa-solid fa-xmark cursor-pointer"></i>
                                                         <i wire:loading
                                                             wire:target='removeBrowser({{ $index }})'
                                                             class="fa-solid fa-spinner fa-spin"></i>
@@ -374,23 +375,23 @@
                                         <div>
                                             <button id="" type="button" wire:click = 'addBrowser("Chrome")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Chrome
                                             </button>
                                             <button id="" type="button"
                                                 wire:click = 'addBrowser("Microsoft Edge")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Microsoft Edge
                                             </button>
                                             <button id="" type="button" wire:click = 'addBrowser("Opera")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Opera
                                             </button>
                                             <button id="" type="button" wire:click = 'addBrowser("Safari")'
                                                 @click = 'open_model = false'
-                                                class="flex items-center justify-between py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
+                                                class="flex items-center justify-between py-3 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                                                 Safari
                                             </button>
                                         </div>
@@ -414,10 +415,10 @@
                     </div>
                     <div class="flex items-center justify-center gap-4 mt-4">
                         <button type="submit"
-                            class="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-800 dark:hover:bg-blue-900 dark:text-gray-300">Save
+                            class="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-500 dark:text-gray-300 cursor-pointer">Save
                             <i wire:loading wire:target='save' class="fa-solid fa-spinner fa-spin"></i></button>
                         <button wire:click='resetForm' type="button" id="cancelButton"
-                            class="px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-800 dark:text-gray-100">Cancel
+                            class="px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer">Cancel
                             <i wire:loading wire:target='resetForm' class="fa-solid fa-spinner fa-spin"></i></button>
                     </div>
                 </form>
