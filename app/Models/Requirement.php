@@ -57,4 +57,8 @@ class Requirement extends Model
     public function requirementVersions() {
         return $this->hasMany(RequirementVersion::class);
     }
+
+    public function attachmentFiles() {
+        return $this->hasMany(Attachment::class, 'requirement_id');
+    }
 }

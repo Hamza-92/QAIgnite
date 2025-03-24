@@ -46,7 +46,7 @@
                                     </x-tooltip>
                                     <x-confirmation-modal title="Archive Project"
                                         message="Are you sure you want to archive this project?"
-                                        method="archive"
+                                        method="archiveProject"
                                         param="{{ $project->id }}" type="archive"
                                         >
                                         <x-tooltip message="Archive Project">

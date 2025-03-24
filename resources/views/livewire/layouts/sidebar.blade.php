@@ -49,6 +49,12 @@
             <span x-show="open">Module Management</span>
             </x-nav-link>
 
+            {{-- Requirement Management --}}
+            <x-nav-link :href="route('requirements')" :active="request()->routeIs('requirements')" wire:navigate>
+            <i class="fa-solid fa-cube"></i>
+            <span x-show="open">Requirements</span>
+            </x-nav-link>
+
             {{-- Role Management --}}
             <x-nav-link :href="route('roles')" :active="request()->routeIs('roles') | request()->routeIs('role.create')  | request()->routeIs('role.edit')" wire:navigate>
             <i class="fa-solid fa-user-shield"></i>

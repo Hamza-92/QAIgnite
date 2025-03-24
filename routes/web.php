@@ -4,6 +4,8 @@ use App\Livewire\Build\Builds;
 use App\Livewire\Module\Modules;
 use App\Livewire\Project\ArchiveProjects;
 use App\Livewire\Project\Projects;
+use App\Livewire\Requirement\RequirementDetails;
+use App\Livewire\Requirement\Requirements;
 use App\Livewire\Role\CreateRole;
 use App\Livewire\Role\EditRole;
 use App\Livewire\Role\Roles;
@@ -42,6 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Module Management
     Route::get('/modules', Modules::class)->name('modules');
+
+    // Requriement Management
+    Route::get('/requirements', Requirements::class)->name('requirements');
+    Route::get('requirements/{requirement_id}/detail', RequirementDetails::class)->name('requirement.detail');
+
 });
 
 Route::middleware(['auth'])->group(function () {

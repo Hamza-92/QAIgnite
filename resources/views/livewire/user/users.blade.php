@@ -144,7 +144,7 @@
                                 <td class="px-4 py-3">{{ $invitation->name }}</td>
                                 <td class="px-4 py-3">{{ $invitation->email }}</td>
                                 <td class="px-4 py-3">{{ $invitation->role->name }}</td>
-                                <td class="px-4 py-3">{{ $invitation->created_at }}</td>
+                                <td class="px-4 py-3">{{ $invitation->updated_at }}</td>
                                 <td class="text-center px-4 py-3">
                                     <div class="flex items-center justify-center gap-1">
                                         <div x-data="{ tooltip: false }" class="relative inline-block">

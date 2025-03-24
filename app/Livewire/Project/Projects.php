@@ -145,7 +145,7 @@ class Projects extends Component
         $this->editProject = true;
     }
 
-    public function archive($id) {
+    public function archiveProject($id) {
         $project = Project::find($id);
         $project->update([
             'is_archived' => true

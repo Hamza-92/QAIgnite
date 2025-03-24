@@ -42,7 +42,7 @@ class Roles extends Component
 
     public function getSortColumn()
     {
-        return $this->sortBy === 'name' ? 'name' : 'users_count';
+        return $this->sortBy;
     }
 
     public function deleteRole($id) {

@@ -10,7 +10,8 @@ class Attachment extends Model
         'filename',
         'file_type',
         'file_path',
-        'project_id'
+        'project_id',
+        'requirement_id'
     ];
 
     public function project() {

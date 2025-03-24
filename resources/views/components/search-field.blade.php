@@ -6,8 +6,9 @@
     <input id="{{$search}}" wire:model.live.debounce.300='{{$search}}'
         class="pl-10 pr-3 py-2 w-full rounded-md text-sm dark:bg-gray-900"
         type="text" placeholder="{{$placeholder}}">
-    <span class="absolute inset-y-0 right-0 flex items-center pr-3">
-        <i x-show='$wire.{{$search}}.length > 0' class="fa-solid fa-xmark cursor-pointer text-gray-500"
+    <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500">
+        <i wire:loading.remove wire:target='{{$resetMethod}}' x-show='$wire.{{$search}}.length > 0' class="fa-solid fa-xmark cursor-pointer"
             wire:click='{{$resetMethod}}'></i>
+            <i wire:loading wire:target='{{$resetMethod}}' class="fa-solid fa-spinner fa-spin"></i>
     </span>
 </div>
