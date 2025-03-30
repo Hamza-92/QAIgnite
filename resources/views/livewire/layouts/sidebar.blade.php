@@ -50,7 +50,7 @@
             </x-nav-link>
 
             {{-- Requirement Management --}}
-            <x-nav-link :href="route('requirements')" :active="request()->routeIs('requirements')" wire:navigate>
+            <x-nav-link :href="route('requirements')" :active="request()->routeIs('requirements') || request()->routeIs('requirement.detail')" wire:navigate>
             <i class="fa-solid fa-cube"></i>
             <span x-show="open">Requirements</span>
             </x-nav-link>

@@ -71,7 +71,7 @@
                                             x-transition:leave="transition ease-in duration-75"
                                             x-transition:leave-start="opacity-100 scale-100"
                                             x-transition:leave-end="opacity-0 scale-95"
-                                            class="absolute z-10 mt-2 w-full shadow-lg rounded-lg border dark:border-gray-700 dark:bg-gray-900 max-h-72 overflow-auto">
+                                            class="absolute z-10 mt-2 w-full shadow-lg rounded-lg border dark:border-gray-700 bg-white dark:bg-gray-900 max-h-72 overflow-auto">
                                             <div class="border-b dark:border-gray-700 flex items-center px-4 py-3">
                                                 <input wire:model.live.debounce.300='form_search_build' type="text"
                                                     name="search"
@@ -134,7 +134,7 @@
                                             x-transition:leave="transition ease-in duration-75"
                                             x-transition:leave-start="opacity-100 scale-100"
                                             x-transition:leave-end="opacity-0 scale-95"
-                                            class="absolute z-10 mt-2 w-full shadow-lg rounded-lg border dark:border-gray-700 dark:bg-gray-900 max-h-72 overflow-auto">
+                                            class="absolute z-10 mt-2 w-full shadow-lg rounded-lg border dark:border-gray-700 bg-white dark:bg-gray-900 max-h-72 overflow-auto">
                                             <div class="border-b dark:border-gray-700 flex items-center px-4 py-2">
                                                 <input wire:model.live.debounce.300='form_search_module'
                                                     type="text" name="search"
@@ -241,9 +241,9 @@
                                         </div>
                                     </div>
                                     <div>
-                                        @if (!empty($attachments))
+                                        @if (!empty($uploadedAttachments))
                                             <div class="">
-                                                @foreach ($attachments as $index => $attachment)
+                                                @foreach ($uploadedAttachments as $index => $attachment)
                                                     <div wire:key='index'
                                                         class="flex items-center justify-between gap-4 mt-2 w-full px-4 p-2 rounded-md bg-gray-100 dark:bg-gray-800">
                                                         @if (in_array($attachment->getClientOriginalExtension(), ['jpg', 'jpeg', 'png', 'gif']))

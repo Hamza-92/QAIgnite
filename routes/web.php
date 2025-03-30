@@ -54,9 +54,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
-    Route::get('profile', Profile::class)->name('profile');
-    Route::get('password', Password::class)->name('profile.password');
-    Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+    // Route::get('profile', Profile::class)->name('profile');
+    // Route::get('profile', Profile::class)->name('settings.profile');
+    // Route::get('password', Password::class)->name('settings.password');
+    // Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
 Route::get('invitation/{token}', AcceptInvitation::class)->name('invitation');

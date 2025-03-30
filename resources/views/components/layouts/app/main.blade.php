@@ -3,9 +3,16 @@
 
 <head>
     @include('partials.head')
+
 </head>
 
-<body class="font-sans antialiased min-h-screen min-w-screen text-sm bg-white text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700">
+<body
+    class="font-sans antialiased min-h-screen min-w-screen text-sm bg-white text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700">
+
+    {{-- Loader --}}
+    <x-loading-spinner />
+
+    {{-- Page Content --}}
     <div class="flex h-screen w-screen overflow-hidden">
 
         <!-- Sidebar (Fixed but does not overlap content) -->
@@ -29,6 +36,7 @@
     <x-toaster-hub />
     @fluxScripts
     <script src="https://kit.fontawesome.com/e7da1d2f0a.js" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

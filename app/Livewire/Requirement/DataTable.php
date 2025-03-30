@@ -8,6 +8,7 @@ use App\Models\Requirement;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class DataTable extends Component
 {
@@ -116,9 +117,17 @@ class DataTable extends Component
     }
 
     #[On('requirement_saved')]
+    #[On('requirement_deleted')]
     public function refreshTable()
     {
         $this->resetPage();
+    }
+
+    // Delete Requirement
+    public function delete($id) {
+        Requirement::destroy($id);
+        $this->resetPage();
+        Toaster::success('Requirement deleted');
     }
 
     public function render()

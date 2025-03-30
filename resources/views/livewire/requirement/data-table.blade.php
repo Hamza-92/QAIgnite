@@ -81,10 +81,57 @@
                             <template x-if="created_date_col">
                                 <td class="px-4 py-3">{{ $requirement->created_at->format('d M Y') }}</td>
                             </template>
-                            <td class="text-center px-4 py-3">
-                                <div>
-                                    <a href="{{ route('requirement.detail', $requirement->id) }}" wire:navigate><i class="fa-solid fa-eye"></i></a>
-                                    <button type="button" wire:click='edit({{$requirement->id}})'><i class="fa-solid fa-pen-to-square"></i></button>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <div class="flex items-center justify-center space-x-1">
+                                    <!-- View Button -->
+                                    <a href="{{ route('requirement.detail', $requirement->id) }}"
+                                       wire:navigate
+                                       class="p-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                                       title="View Details">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <!-- Edit Button -->
+                                    <button type="button"
+                                            wire:click="edit({{ $requirement->id }})"
+                                            wire:loading.attr="disabled"
+                                            class="p-1 text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 transition-colors cursor-pointer"
+                                            title="Edit">
+                                        <i wire:loading.remove wire:target="edit({{ $requirement->id }})" class="fa-solid fa-pen-to-square"></i>
+                                        <span wire:loading wire:target="edit({{ $requirement->id }})" class="ml-1">
+                                            <i class="fa-solid fa-spinner animate-spin"></i>
+                                        </span>
+                                    </button>
+
+                                    <!-- Delete Button -->
+                                    <button type="button"
+                                            wire:loading.attr="disabled"
+                                            wire:target="delete({{ $requirement->id }})"
+                                            x-data="{
+                                                confirmDelete() {
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: 'This requirement will be permanently deleted!',
+                                                        icon: 'warning',
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: '#d33',
+                                                        cancelButtonColor: '#3085d6',
+                                                        confirmButtonText: 'Delete'
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $wire.delete({{ $requirement->id }})
+                                                        }
+                                                    })
+                                                }
+                                            }"
+                                            @click="confirmDelete()"
+                                            class="p-1 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors"
+                                            title="Delete">
+                                        <i wire:loading.remove wire:target="delete({{ $requirement->id }})" class="fa-solid fa-trash-can"></i>
+                                        <span wire:loading wire:target="delete({{ $requirement->id }})" class="ml-1">
+                                            <i class="fa-solid fa-spinner animate-spin"></i>
+                                        </span>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

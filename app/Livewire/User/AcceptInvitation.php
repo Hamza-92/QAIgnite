@@ -30,7 +30,7 @@ class AcceptInvitation extends Component
         $data = Invitation::where('token', $token)->first();
         if (!isset($data)) {
             abort(403, 'Sorry you cannot perform this action');
-        } elseif ($data->created_at < now()->subDays(7)) {
+        } elseif ($data->updated_at < now()->subDays(7)) {
             abort(403, 'Sorry the link is expired');
         }
         $this->invitation_id = $data->id;

@@ -31,9 +31,9 @@ class Requirements extends Component
     public $requirement_source;
     public $requirement_type;
     public $status;
-    #[Rule(['attachments.*' => 'file|max:10240|mimes:gif,jpg,jpeg,png,pdf,docx,csv,xls,ppt,mp4,webm,msg,eml'])]
+    #[Rule(['uploadedAttachments.*' => 'file|max:10240|mimes:gif,jpg,jpeg,png,pdf,docx,csv,xls,ppt,mp4,webm,msg,eml'])]
     public array $tempAttachments;
-    public array $attachments;
+    public array $uploadedAttachments;
     public $comment;
     public $requirement_version_history;
     public $assigned_to;
@@ -45,7 +45,7 @@ class Requirements extends Component
         'requirement_type' => 'nullable|sometimes|string|in:Functional,UX/UI',
         'requirement_source' => 'nullable|sometimes|string|min:3|max:255',
         'status' => 'nullable|sometimes|string|in:Backlog,Testing,Completed,Ready for Testing,Design,To Do,In progress,Done',
-        'attachments' => 'nullable|sometimes|array',
+        'uploadedAttachments' => 'nullable|sometimes|array',
         'comment' => 'nullable|sometimes|string|min:3|max:500',
         'created_by' => 'integer',
         'project_id' => 'integer',
@@ -69,7 +69,7 @@ class Requirements extends Component
         $this->requirement_source = '';
         $this->status = '';
         $this->tempAttachments = [];
-        $this->attachments = [];
+        $this->uploadedAttachments = [];
         $this->created_by = auth()->user()->id;
         $this->project_id = auth()->user()->default_project;
         $this->build_id = null;
@@ -170,16 +170,16 @@ class Requirements extends Component
     public function updatedTempAttachments()
     {
         foreach ($this->tempAttachments as $tempAttachment) {
-            $this->attachments[] = $tempAttachment;
+            $this->uploadedAttachments[] = $tempAttachment;
         }
         $this->temp_attachments = [];
     }
     public function removeAttachment($index)
     {
-        if (isset($this->attachments[$index])) {
-            $this->attachments[$index]->delete();
-            unset($this->attachments[$index]);
-            $this->attachments = array_values($this->attachments);
+        if (isset($this->uploadedAttachments[$index])) {
+            $this->uploadedAttachments[$index]->delete();
+            unset($this->uploadedAttachments[$index]);
+            $this->uploadedAttachments = array_values($this->uploadedAttachments);
         }
     }
 
@@ -244,8 +244,8 @@ class Requirements extends Component
                 return;
             } else {
                 $attachmentIds = $this->requirement->attachments ?? [];
-                if ($this->attachments) {
-                    foreach ($this->attachments as $attachment) {
+                if ($this->uploadedAttachments) {
+                    foreach ($this->uploadedAttachments as $attachment) {
                         if (is_object($attachment)) {
                             $filename = pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME);
                             $extension = $attachment->getClientOriginalExtension();
@@ -302,10 +302,6 @@ class Requirements extends Component
             }
         }
 
-        $this->resetForm();
-        $this->dispatch('requirement_saved');
-
-
         if ($this->create) {
             $this->validate();
             $existing_requirement = Requirement::where('requirement_title', $this->requirement_title)
@@ -316,8 +312,8 @@ class Requirements extends Component
                 return;
             } else {
                 $attachmentIds = [];
-                if ($this->attachments) {
-                    foreach ($this->attachments as $attachment) {
+                if ($this->uploadedAttachments) {
+                    foreach ($this->uploadedAttachments as $attachment) {
                         $filename = pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME);
                         $extension = $attachment->getClientOriginalExtension();
                         $timestamp = now()->timestamp;
@@ -380,6 +376,7 @@ class Requirements extends Component
         $this->resetForm();
         $this->dispatch('requirement_saved');
     }
+
 
     public function render()
     {

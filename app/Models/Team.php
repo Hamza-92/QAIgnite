@@ -11,7 +11,11 @@ class Team extends Model
         'user_id'
     ];
 
-    public function members() {
-        $this->belongsToMany('users');
+    public function user() {
+        $this->belongsTo('users');
+    }
+
+    public function project() {
+        $this->belongsTo('projects');
     }
 }

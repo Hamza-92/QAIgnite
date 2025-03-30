@@ -93,9 +93,9 @@
                             <flux:radio value="dark" icon="moon"></flux:radio>
                             <flux:radio value="system" icon="computer-desktop"></flux:radio>
                         </flux:radio.group>
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
+                        {{-- <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
                                 {{ __('Log Out') }}

@@ -37,6 +37,10 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function team() {
+        return $this->hasMany(Team::class);
+    }
+
     public function builds() {
         return $this->hasMany(Build::class);
     }
@@ -48,4 +52,6 @@ class Project extends Model
     public function requirements() {
         return $this->hasMany(Requirement::class);
     }
+
+
 }
