@@ -36,7 +36,19 @@
                 <tr class="border-b dark:border-gray-700">
                     <th class="px-4 py-3 border-r dark:border-gray-700 bg-gray-100 dark:bg-gray-800 font-medium">Test
                         Scenarios</th>
-                    <td class="w-full px-4 py-3"></td>
+                    <td class="w-full px-4 py-3">
+                        @if ($requirement->testScenarios->isNotEmpty())
+                            <ul class="">
+                                @foreach ($requirement->testScenarios as $scenario)
+                                    <li>
+                                        <a href="{{ route('test-scenario.detail', $scenario->id) }}" class="underline">
+                                            {{ $scenario->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </td>
                 </tr>
                 <tr class="border-b dark:border-gray-700">
                     <th class="px-4 py-3 border-r dark:border-gray-700 bg-gray-100 dark:bg-gray-800 font-medium">Test

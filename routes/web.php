@@ -13,6 +13,8 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Team\Team;
+use App\Livewire\TestScenario\TestScenarios;
+use App\Livewire\TestScenario\TsDetail;
 use App\Livewire\User\AcceptInvitation;
 use App\Livewire\User\Users;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +50,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Requriement Management
     Route::get('/requirements', Requirements::class)->name('requirements');
     Route::get('requirements/{requirement_id}/detail', RequirementDetails::class)->name('requirement.detail');
+
+    // Test Scenarios Management
+    Route::get('/test-scenarios', TestScenarios::class)->name('test-scenarios');
+    Route::get('test-scenarios/{test_scenario_id}/detail', TsDetail::class)->name('test-scenario.detail');
+
+    Route::get('/test-cases', TestScenarios::class)->name('test-cases');
 
 });
 

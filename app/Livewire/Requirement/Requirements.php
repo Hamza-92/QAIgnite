@@ -41,7 +41,7 @@ class Requirements extends Component
     // Attribute Rules
     protected $rules = [
         'requirement_title' => 'required|string|min:3|max:255',
-        'requirement_summary' => 'required|string|min:3|max:500',
+        'requirement_summary' => 'required|string|min:3|max:1500',
         'requirement_type' => 'nullable|sometimes|string|in:Functional,UX/UI',
         'requirement_source' => 'nullable|sometimes|string|min:3|max:255',
         'status' => 'nullable|sometimes|string|in:Backlog,Testing,Completed,Ready for Testing,Design,To Do,In progress,Done',

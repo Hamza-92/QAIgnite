@@ -91,6 +91,26 @@ select:focus[data-flux-control] {
     }
 }
 
+/* Sidebar Style */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 2px;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

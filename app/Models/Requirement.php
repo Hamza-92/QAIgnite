@@ -61,4 +61,8 @@ class Requirement extends Model
     public function attachmentFiles() {
         return $this->hasMany(Attachment::class, 'requirement_id');
     }
+
+    public function testScenarios() {
+        return $this->hasMany(TestScenario::class);
+    }
 }

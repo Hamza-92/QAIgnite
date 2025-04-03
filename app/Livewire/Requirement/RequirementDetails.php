@@ -38,7 +38,7 @@ class RequirementDetails extends Component
 
     public function render()
     {
-        $requirement = Requirement::with(['build', 'module', 'assignedTo', 'createdBy', 'comments' => function($query) {
+        $requirement = Requirement::with(['build', 'module', 'testScenarios', 'assignedTo', 'createdBy', 'comments' => function($query) {
             $query->orderBy('created_at', 'desc');
             }, 'comments.user'])
             ->where('id', $this->requirement_id)

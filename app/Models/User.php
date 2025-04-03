@@ -71,4 +71,8 @@ class User extends Authenticatable implements MustVerifyEmail
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function test_scenarios() {
+        return $this->hasMany(TestScenario::class, 'created_by');
+    }
 }

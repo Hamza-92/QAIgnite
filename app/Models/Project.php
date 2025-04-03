@@ -53,5 +53,9 @@ class Project extends Model
         return $this->hasMany(Requirement::class);
     }
 
+    public function test_scenarios() {
+        return $this->hasMany(TestScenario::class);
+    }
+
 
 }
