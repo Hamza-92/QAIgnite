@@ -21,7 +21,7 @@ return [
      *
      * Supported: true | false
      */
-    'closeable' => true,
+    'closeable' => false,
 
     /**
      * The on-screen duration of each toast.

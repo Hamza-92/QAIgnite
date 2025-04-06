@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TestCase extends Model
+class TestCaseVersion extends Model
 {
     protected $fillable = [
+        'test_case_id',
         'tc_name',
         'tc_description',
         'tc_status',
@@ -58,6 +59,9 @@ class TestCase extends Model
     public function test_scenario() {
         return $this->belongsTo(TestScenario::class, 'tc_test_scenario_id');
     }
+    public function test_case() {
+        return $this->belongsTo(TestCase::class, 'test_case_id');
+    }
     public function created_by() {
         return $this->belongsTo(User::class, 'tc_created_by');
     }
@@ -66,11 +70,5 @@ class TestCase extends Model
     }
     public function approval_request() {
         return $this->belongsTo(User::class, 'tc_approval_request');
-    }
-    public function comments() {
-        return $this->hasMany(Comment::class, 'test_case_id');
-    }
-    public function test_case_versions() {
-        return $this->hasMany(TestCaseVersion::class, 'test_case_id');
     }
 }

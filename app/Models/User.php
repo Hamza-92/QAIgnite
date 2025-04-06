@@ -73,6 +73,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function test_scenarios() {
-        return $this->hasMany(TestScenario::class, 'created_by');
+        return $this->hasMany(TestScenario::class, 'ts_created_by');
+    }
+
+    public function created_test_cases() {
+        return $this->hasMany(TestCase::class, 'tc_created_by');
+    }
+
+    public function test_case_approval_requests() {
+        return $this->hasMany(TestCase::class, 'tc_approval_request');
+    }
+
+    public function assigned_test_cases() {
+        return $this->hasMany(TestCase::class, 'tc_assigned_to');
     }
 }

@@ -10,6 +10,7 @@ class Comment extends Model
         'comment',
         'user_id',
         'requirement_id',
+        'test_case_id',
     ];
 
     public function user() {
@@ -18,5 +19,9 @@ class Comment extends Model
 
     public function requirement() {
         return $this->belongsTo(Requirement::class, 'requirement_id');
+    }
+
+    public function test_case() {
+        return $this->belongsTo(TestCase::class, 'test_case_id');
     }
 }

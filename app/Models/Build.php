@@ -38,6 +38,10 @@ class Build extends Model
     }
 
     public function test_scenarios() {
-        return $this->hasMany(TestScenario::class);
+        return $this->hasMany(TestScenario::class, 'ts_build_id');
+    }
+
+    public function test_cases() {
+        return $this->hasMany(TestCase::class, 'tc_build_id');
     }
 }

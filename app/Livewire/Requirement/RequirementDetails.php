@@ -38,14 +38,14 @@ class RequirementDetails extends Component
 
     public function render()
     {
-        $requirement = Requirement::with(['build', 'module', 'testScenarios', 'assignedTo', 'createdBy', 'comments' => function($query) {
+        $requirement = Requirement::with(['build', 'module', 'testScenarios', 'testCases', 'assignedTo', 'createdBy', 'comments' => function($query) {
             $query->orderBy('created_at', 'desc');
             }, 'comments.user'])
             ->where('id', $this->requirement_id)
             ->where('project_id', auth()->user()->default_project)
             ->first();
 
-        $requirement_versions = RequirementVersion::with(['build', 'module', 'assignedTo'])
+        $requirement_versions = RequirementVersion::with(['build', 'module', 'testScenarios', 'testCases', 'assignedTo'])
             ->where('requirement_id', $this->requirement_id)
             ->where('project_id', auth()->user()->default_project)
             ->get()

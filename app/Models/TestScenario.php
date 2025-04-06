@@ -7,22 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class TestScenario extends Model
 {
     protected $fillable = [
-        'name',
-        'description',
-        'project_id',
-        'build_id',
-        'module_id',
-        'requirement_id',
-        'created_by',
+        'ts_name',
+        'ts_description',
+        'ts_project_id',
+        'ts_build_id',
+        'ts_module_id',
+        'ts_requirement_id',
+        'ts_created_by',
     ];
 
 
     protected $casts = [
-        'project_id' => 'integer',
-        'build_id' => 'integer',
-        'module_id' => 'integer',
-        'requirement_id' => 'integer',
-        'created_by' => 'integer',
+        'ts_project_id' => 'integer',
+        'ts_build_id' => 'integer',
+        'ts_module_id' => 'integer',
+        'ts_requirement_id' => 'integer',
+        'ts_created_by' => 'integer',
     ];
 
     public function project()
@@ -32,21 +32,25 @@ class TestScenario extends Model
 
     public function build()
     {
-        return $this->belongsTo(Build::class, 'build_id');
+        return $this->belongsTo(Build::class, 'ts_build_id');
     }
 
     public function module()
     {
-        return $this->belongsTo(Module::class, 'module_id');
+        return $this->belongsTo(Module::class, 'ts_module_id');
     }
 
     public function requirement()
     {
-        return $this->belongsTo(Requirement::class, 'requirement_id');
+        return $this->belongsTo(Requirement::class, 'ts_requirement_id');
     }
 
     public function createdBy()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'ts_created_by');
+    }
+
+    public function test_cases() {
+        return $this->hasMany(TestCase::class, 'tc_test_scenario_id');
     }
 }

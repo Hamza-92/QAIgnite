@@ -35,30 +35,25 @@
                             <td class="px-4 py-3">{{ $project->created_at }}</td>
                             <td class="text-center px-4 py-3">
                                 <div class="flex items-center justify-center gap-1">
-                                    <x-tooltip message="Edit Project">
-                                        <button class="px-2 py-1 hover:text-blue-500" type="button"
+                                        <button class="px-2 py-1 hover:text-blue-500" type="button" title="Edit Project"
                                             wire:click="edit({{ $project->id }})">
                                             <i wire:loading.remove wire:target="edit({{ $project->id }})"
                                                 class="fa-solid fa-pen-to-square"></i>
                                             <i wire:loading wire:target="edit({{ $project->id }})"
                                                 class="fa-solid fa-spinner fa-spin"></i>
                                         </button>
-                                    </x-tooltip>
                                     <x-confirmation-modal title="Archive Project"
                                         message="Are you sure you want to archive this project?"
                                         method="archiveProject"
                                         param="{{ $project->id }}" type="archive"
                                         >
-                                        <x-tooltip message="Archive Project">
-                                            <button class="px-2 py-1 hover:text-red-500" type="button">
+                                            <button class="px-2 py-1 hover:text-red-500" type="button" title="Archive Project">
                                                 <i wire:loading.remove wire:target="archive({{ $project->id }})"
                                                     class="fa-solid fa-box-archive"></i>
                                                 <i wire:loading wire:target="archive({{ $project->id }})"
                                                     class="fa-solid fa-spinner fa-spin"></i>
                                             </button>
-                                        </x-tooltip>
                                     </x-confirmation-modal>
-
                                 </div>
                             </td>
                         </tr>

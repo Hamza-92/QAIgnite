@@ -48,7 +48,7 @@ class TsDataTable extends Component
 
         // Fetch users who have created test scenarios in the project
         $this->users = User::whereHas('test_scenarios', function ($query) {
-            $query->where('project_id', auth()->user()->default_project);
+            $query->where('ts_project_id', auth()->user()->default_project);
         })
         ->select('id', 'name')
         ->distinct()
@@ -63,13 +63,26 @@ class TsDataTable extends Component
 
     public function updatedBuildId()
     {
+        if($this->build_id == 'all') {
+            $this->build_id = null;
+        }
         $this->updateModulesList();
         $this->updateRequirementsList();
     }
 
     public function updatedModuleId()
     {
+        if($this->module_id == 'all') {
+            $this->module_id = null;
+        }
         $this->updateRequirementsList();
+    }
+
+    public function updatedRequirementId()
+    {
+        if($this->requirement_id == 'all') {
+            $this->requirement_id = null;
+        }
     }
 
     public function updatedCreatedBy()
@@ -167,7 +180,7 @@ class TsDataTable extends Component
     public function delete($id)
     {
         $ts = TestScenario::where('id', $id)
-            ->where('project_id', auth()->user()->default_project)
+            ->where('ts_project_id', auth()->user()->default_project)
             ->first();
 
         if ($ts) {
@@ -181,22 +194,22 @@ class TsDataTable extends Component
     {
         $test_scenarios = TestScenario::with(['build', 'module', 'requirement', 'createdBy'])
             ->when($this->search, function ($query) {
-                $query->where('name', 'like', "%{$this->search}%");
+                $query->where('ts_name', 'like', "%{$this->search}%");
             })
             ->when($this->build_id, function ($query) {
-                $query->where('build_id', $this->build_id);
+                $query->where('ts_build_id', $this->build_id);
             })
             ->when($this->module_id, function ($query) {
-                $query->where('module_id', $this->module_id);
+                $query->where('ts_module_id', $this->module_id);
             })
             ->when($this->requirement_id, function ($query) {
-                $query->where('requirement_id', $this->requirement_id);
+                $query->where('ts_requirement_id', $this->requirement_id);
             })
             ->when($this->created_by, function ($query) {
-                $query->where('created_by', $this->created_by);
+                $query->where('ts_created_by', $this->created_by);
             })
             ->orderBy($this->getSortColumn(), $this->sortDir)
-            ->where('project_id', auth()->user()->default_project)
+            ->where('ts_project_id', auth()->user()->default_project)
             ->paginate($this->perPage);
 
         return view('livewire.test-scenario.ts-data-table', compact('test_scenarios'));

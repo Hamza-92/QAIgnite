@@ -30,25 +30,22 @@
                 <tbody>
                     @forelse ($modules as $module)
                         <tr wire:key='{{ $module->id }}' class="hover:bg-gray-100 dark:hover:bg-gray-800">
-                            <td class="px-4 py-3">{{ $module->build->name ?? '' }}</td>
-                            <td class="px-4 py-3">{{ $module->module_name }}</td>
-                            <td class="px-4 py-3">{{ $module->module_description }}</td>
+                            <td class="px-4 py-3" title="{{ $module->build->name ?? '' }}">{{ $module->build->name ?? '' }}</td>
+                            <td class="px-4 py-3" title="{{ $module->module_name }}">{{ $module->module_name }}</td>
+                            <td class="px-4 py-3" title="{{ $module->module_description }}">
+                                {{ Str::limit($module->module_description, 30, '...') }}
+                            </td>
                             <td class="px-4 py-3">{{ $module->created_at->format('d-M-Y') }}</td>
                             <td class="text-center px-4 py-3">
-                                <div>
-                                    <x-tooltip message="Edit Module">
-                                        <button wire:click="edit({{ $module->id }})"
+                                <div class="flex items-center justify-center gap-2">
+                                        <button wire:click="edit({{ $module->id }})" title="Edit"
                                             class="px-2 py-1 hover:text-blue-500 cursor-pointer">
                                             <i class="fa-solid fa-edit"></i>
                                         </button>
-                                    </x-tooltip>
-
-                                    <x-tooltip message='Delete Module' >
-                                        <button @click="confirmationModel = true; moduleid = {{ $module->id }}"
+                                        <button @click="confirmationModel = true; moduleid = {{ $module->id }}" title="Delete"
                                             class="px-2 py-1 text-red-500 cursor-pointer">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                    </x-tooltip>
                                 </div>
                             </td>
                         </tr>

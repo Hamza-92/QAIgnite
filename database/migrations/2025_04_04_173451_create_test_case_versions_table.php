@@ -6,11 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('test_cases', function (Blueprint $table) {
+        Schema::create('test_case_versions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('test_case_id')->constrained('test_cases')->cascadeOnDelete();
             $table->string('tc_name');
             $table->string('tc_description');
             $table->string('tc_status');
@@ -36,8 +39,11 @@ return new class extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('test_cases');
+        Schema::dropIfExists('test_case_versions');
     }
 };

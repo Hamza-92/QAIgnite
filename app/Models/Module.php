@@ -26,6 +26,10 @@ class Module extends Model
     }
 
     public function test_scenarios() {
-        return $this->hasMany(TestScenario::class);
+        return $this->hasMany(TestScenario::class, 'ts_module_id');
+    }
+
+    public function test_cases() {
+        return $this->hasMany(TestCase::class, 'tc_module_id');
     }
 }

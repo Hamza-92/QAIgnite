@@ -20,9 +20,9 @@ class TsDetail extends Component
 
     public function render()
     {
-        $test_scenario = TestScenario::with(['build', 'module', 'createdBy'])
+        $test_scenario = TestScenario::with(['build', 'module', 'test_cases','createdBy'])
             ->where('id', $this->test_scenario_id)
-            ->where('project_id', auth()->user()->default_project)
+            ->where('ts_project_id', auth()->user()->default_project)
             ->first();
         // dd($test_scenario);
 

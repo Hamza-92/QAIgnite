@@ -33,7 +33,7 @@
         <!-- Actions -->
         <div class="flex items-center gap-2">
             @if(in_array($fileType, ['pdf', 'jpg', 'jpeg', 'png', 'gif', 'docx', 'ppt', 'xls', 'csv', 'mp4', 'webm']))
-                <button @click="previewOpen = !previewOpen; loadContent()"
+                <button @click="previewOpen = !previewOpen; loadContent()" type="button"
                         class="p-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -65,7 +65,7 @@
 
         <div class="p-3 flex justify-between items-center bg-gray-50 dark:bg-gray-700 border-b dark:border-gray-600">
             <h4 class="font-medium text-gray-900 dark:text-white">Preview</h4>
-            <button @click="previewOpen = false" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+            <button @click="previewOpen = false" type="button" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>

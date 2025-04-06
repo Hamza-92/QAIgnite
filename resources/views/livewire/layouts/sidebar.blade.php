@@ -69,13 +69,13 @@
             </div>
 
             {{-- Test Scenarios --}}
-            <x-nav-link :href="route('test-scenarios')" :active="request()->routeIs('test-scenarios')" wire:navigate>
+            <x-nav-link :href="route('test-scenarios')" :active="request()->routeIs('test-scenarios') || request()->routeIs('test-scenario.detail')" wire:navigate>
                 <i class="fa-solid fa-cube"></i>
                 <span x-show="open">Test Scenarios</span>
             </x-nav-link>
 
             {{-- Test Cases --}}
-            <x-nav-link :href="route('test-cases')" :active="request()->routeIs('test-cases') || request()->routeIs('test-scenario.detail')" wire:navigate>
+            <x-nav-link :href="route('test-cases')" :active="request()->routeIs('test-cases') || request()->routeIs('test-case.detail')" wire:navigate>
                 <i class="fa-solid fa-cube"></i>
                 <span x-show="open">Test Cases</span>
             </x-nav-link>

@@ -4,7 +4,7 @@
         <h2 class="text-lg">Test Scenarios</h2>
         <button x-on:click="$wire.create = true"
             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer"
-            type="button">+ Test Scenario</button>
+            type="button"><i class="fa-solid fa-plus"></i> Test Scenario</button>
     </div>
 
     {{-- Table --}}
@@ -27,7 +27,7 @@
             <!-- Modal header -->
             <div
                 class="sticky top-0 z-10 px-8 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-                <h3 class="text-lg font-semibold" x-text="$wire.create ? 'Create new Requirement' : 'Edit Requirement'">
+                <h3 class="text-lg" x-text="$wire.create ? 'Create new Test Scenario' : 'Edit Test Scenario'">
                 </h3>
                 <button wire:click='resetForm'
                     class="p-2 -mr-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors cursor-pointer"
@@ -39,11 +39,14 @@
             <!-- Modal content -->
             <div class="p-8">
                 <form wire:submit.prevent='save'>
-                    {{-- Requirement Title --}}
+                    {{-- Test Scenario Name --}}
                     <x-input-field label='Test Scenario Name' model='ts_name' type='text' required='true' />
 
-                    {{-- Requirement Summary --}}
+                    {{-- Test Scenario Description --}}
                     <x-textarea class="mt-4" label='Description' model='ts_description' required='true' rows='5'/>
+
+                    {{-- Status --}}
+
 
                     {{-- Additional Details --}}
                     <div x-data="{ open: false }" class="mt-4">

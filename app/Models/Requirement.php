@@ -63,6 +63,10 @@ class Requirement extends Model
     }
 
     public function testScenarios() {
-        return $this->hasMany(TestScenario::class);
+        return $this->hasMany(TestScenario::class, 'ts_requirement_id');
+    }
+
+    public function testCases() {
+        return $this->hasMany(TestCase::class, 'tc_requirement_id');
     }
 }

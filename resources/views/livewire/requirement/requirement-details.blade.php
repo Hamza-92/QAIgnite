@@ -37,23 +37,33 @@
                     <th class="px-4 py-3 border-r dark:border-gray-700 bg-gray-100 dark:bg-gray-800 font-medium">Test
                         Scenarios</th>
                     <td class="w-full px-4 py-3">
-                        @if ($requirement->testScenarios->isNotEmpty())
-                            <ul class="">
-                                @foreach ($requirement->testScenarios as $scenario)
-                                    <li>
-                                        <a href="{{ route('test-scenario.detail', $scenario->id) }}" class="underline">
-                                            {{ $scenario->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
+                        <ul>
+                            @forelse ($requirement->testScenarios as $scenario)
+                                <li>
+                                    <a href="{{ route('test-scenario.detail', $scenario->id) }}" class="underline" wire:navigate>
+                                        {{ $scenario->ts_name }}
+                                    </a>
+                                </li>
+                            @empty
+                            @endforelse
+                        </ul>
                     </td>
                 </tr>
                 <tr class="border-b dark:border-gray-700">
                     <th class="px-4 py-3 border-r dark:border-gray-700 bg-gray-100 dark:bg-gray-800 font-medium">Test
                         Cases</th>
-                    <td class="w-full px-4 py-3"></td>
+                    <td class="w-full px-4 py-3">
+                        <ul>
+                            @forelse ($requirement->testCases as $test_case)
+                                <li>
+                                    <a href="{{ route('test-case.detail', $test_case->id) }}" class="underline" wire:navigate>
+                                        {{ $test_case->tc_name }}
+                                    </a>
+                                </li>
+                            @empty
+                            @endforelse
+                        </ul>
+                    </td>
                 </tr>
                 <tr class="border-b dark:border-gray-700">
                     <th class="px-4 py-3 border-r dark:border-gray-700 bg-gray-100 dark:bg-gray-800 font-medium">Defects
@@ -83,7 +93,7 @@
             <div @click="open_model = !open_model"
                 class="w-full flex items-center justify-between px-4 py-2 cursor-pointer text-white bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 transition-colors duration-300 rounded-t-lg"
                 :class="{ 'rounded-lg': !open_model }">
-                <h3 class="text-lg font-medium">Attachments ({{ count($attachments) }})</h3>
+                <h3 class="text-lg font-medium">Attachments</h3>
                 <span class="px-2 py-1 bg-white text-gray-900 font-bold rounded transition-transform duration-300"
                     :class="{ 'rotate-180': open_model }" x-text="open_model ? '−' : '+'"></span>
             </div>

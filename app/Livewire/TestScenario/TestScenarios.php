@@ -25,7 +25,7 @@ class TestScenarios extends Component
     protected function rules()
     {
         return [
-            'ts_name' => 'required|string|min:3|max:255|unique:test_scenarios,name,'.($this->test_scenario->id ?? 'null'),
+            'ts_name' => 'required|string|min:3|max:255|unique:test_scenarios,ts_name,'.($this->test_scenario->id ?? 'null'),
             'ts_description' => 'required|string|min:3|max:1500',
             'project_id' => 'required|integer',
             'build_id' => 'nullable|sometimes|integer',
@@ -195,12 +195,12 @@ class TestScenarios extends Component
     {
         $this->test_scenario = TestScenario::find($id);
         if ($this->test_scenario) {
-            $this->ts_name = $this->test_scenario->name;
-            $this->ts_description = $this->test_scenario->description;
-            $this->project_id = $this->test_scenario->project_id;
-            $this->build_id = $this->test_scenario->build_id;
-            $this->module_id = $this->test_scenario->module_id;
-            $this->requirement_id = $this->test_scenario->requirement_id;
+            $this->ts_name = $this->test_scenario->ts_name;
+            $this->ts_description = $this->test_scenario->ts_description;
+            $this->project_id = $this->test_scenario->ts_project_id;
+            $this->build_id = $this->test_scenario->ts_build_id;
+            $this->module_id = $this->test_scenario->ts_module_id;
+            $this->requirement_id = $this->test_scenario->ts_requirement_id;
 
             // Form handling
             $this->create = false;
@@ -209,19 +209,19 @@ class TestScenarios extends Component
             // Form build field data handling
             $this->form_builds = [];
             $this->form_search_build = null;
-            $this->form_selected_build_name = $this->test_scenario->build_id ? Build::find($this->test_scenario->build_id)->name : null;
+            $this->form_selected_build_name = $this->test_scenario->ts_build_id ? Build::find($this->test_scenario->ts_build_id)->name : null;
             $this->loadFormBuilds();
 
             // Form module field data handling
             $this->form_modules = [];
             $this->form_search_module = null;
-            $this->form_selected_module_name = $this->test_scenario->module_id ? Module::find($this->test_scenario->module_id)->module_name : null;
+            $this->form_selected_module_name = $this->test_scenario->ts_module_id ? Module::find($this->test_scenario->module_id)->ts_module_name : null;
             $this->loadFormModules();
 
             // Form requirement field data handling
             $this->form_requirements = [];
             $this->form_search_requirement = '';
-            $this->form_selected_requirement_name = $this->test_scenario->requirement_id ? Requirement::find($this->test_scenario->requirement_id)->requirement_title : null;
+            $this->form_selected_requirement_name = $this->test_scenario->ts_requirement_id ? Requirement::find($this->test_scenario->ts_requirement_id)->requirement_title : null;
             $this->loadFormRequirements();
         } else {
             Toaster::error('Test scenario not found');
@@ -233,24 +233,24 @@ class TestScenarios extends Component
         $this->validate($this->rules());
         if ($this->create) {
             TestScenario::create([
-                'name' => $this->ts_name,
-                'description' => $this->ts_description,
-                'project_id' => $this->project_id,
-                'build_id' => $this->build_id,
-                'module_id' => $this->module_id,
-                'requirement_id' => $this->requirement_id,
-                'created_by' => auth()->user()->id
+                'ts_name' => $this->ts_name,
+                'ts_description' => $this->ts_description,
+                'ts_project_id' => $this->project_id,
+                'ts_build_id' => $this->build_id,
+                'ts_module_id' => $this->module_id,
+                'ts_requirement_id' => $this->requirement_id,
+                'ts_created_by' => auth()->user()->id
             ]);
             Toaster::success('Test scenario created successfully');
         } else if ($this->edit) {
             $this->test_scenario->update([
-                'name' => $this->ts_name,
-                'description' => $this->ts_description,
-                'project_id' => $this->project_id,
-                'build_id' => $this->build_id,
-                'module_id' => $this->module_id,
-                'requirement_id' => $this->requirement_id,
-                'created_by' => auth()->user()->id
+                'ts_name' => $this->ts_name,
+                'ts_description' => $this->ts_description,
+                'ts_project_id' => $this->project_id,
+                'ts_build_id' => $this->build_id,
+                'ts_module_id' => $this->module_id,
+                'ts_requirement_id' => $this->requirement_id,
+                'ts_created_by' => auth()->user()->id
             ]);
             Toaster::success('Test scenario updated successfully');
         }

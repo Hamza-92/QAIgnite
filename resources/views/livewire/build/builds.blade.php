@@ -43,22 +43,18 @@
                             <td class="px-4 py-3">{{ optional($build->start_date)->format('d-M-Y') }}</td>
                             <td class="px-4 py-3">{{ optional($build->end_date)->format('d-M-Y') }}</td>
                             <td class="text-center px-4 py-3">
-                                <div>
-                                    <x-tooltip message="Edit Build">
-                                        <button class="px-2 py-1 hover:text-blue-500 cursor-pointer" type="button"
-                                            wire:click="edit({{ $build->id }})">
-                                            <i wire:loading.remove wire:target="edit({{ $build->id }})"
-                                                class="fa-solid fa-pen-to-square"></i>
-                                            <i wire:loading wire:target="edit({{ $build->id }})"
-                                                class="fa-solid fa-spinner fa-spin"></i>
-                                        </button>
-                                    </x-tooltip>
-                                    <x-tooltip message="Delete Build">
-                                        <button @click="confirmationModel = true; buildid = {{ $build->id }}"
-                                            class="px-2 py-1 text-red-500 cursor-pointer">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </x-tooltip>
+                                <div class="flex items-center justify-center gap-1">
+                                    <button class="px-2 py-1 hover:text-blue-500 cursor-pointer" type="button" title="Edit Build"
+                                        wire:click="edit({{ $build->id }})">
+                                        <i wire:loading.remove wire:target="edit({{ $build->id }})"
+                                            class="fa-solid fa-pen-to-square"></i>
+                                        <i wire:loading wire:target="edit({{ $build->id }})"
+                                            class="fa-solid fa-spinner fa-spin"></i>
+                                    </button>
+                                    <button @click="confirmationModel = true; buildid = {{ $build->id }}" title="Delete Build"
+                                        class="px-2 py-1 text-red-500 cursor-pointer">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

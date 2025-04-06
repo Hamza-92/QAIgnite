@@ -33,32 +33,32 @@
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="build_col" id="build_col" type="checkbox" class="dark:bg-gray-700"
                                     x-model="build_col">
-                                <label for="build_col" class="pl-4">Build</label>
+                                <label for="build_col" class="pl-4 w-full">Build</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="module_col" id="module_col" type="checkbox" class="dark:bg-gray-700"
                                     x-model="module_col">
-                                <label for="module_col" class="pl-4">Module</label>
+                                <label for="module_col" class="pl-4 w-full">Module</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="requirement_col" id="requirement_col" type="checkbox"
                                     class="dark:bg-gray-700" x-model="requirement_col">
-                                <label for="requirement_col" class="pl-4">Requirement</label>
+                                <label for="requirement_col" class="pl-4 w-full">Requirement</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="test_scenario_col" id="test_scenario_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="test_scenario_col">
-                                <label for="test_scenario_col" class="pl-4">Test Scenario</label>
+                                <label for="test_scenario_col" class="pl-4 w-full">Test Scenario</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="description_col" id="description_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="description_col">
-                                <label for="description_col" class="pl-4">Description</label>
+                                <label for="description_col" class="pl-4 w-full">Description</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="created_date_col" id="created_date_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="created_date_col">
-                                <label for="created_date_col" class="pl-4">Created Date</label>
+                                <label for="created_date_col" class="pl-4 w-full">Created Date</label>
                             </div>
                         </div>
                     </div>
@@ -110,10 +110,12 @@
                                 <td class="px-4 py-3">{{ $test_scenario->requirement->requirement_title ?? '' }}</td>
                             </template>
                             <template x-if="test_scenario_col">
-                                <td class="px-4 py-3">{{ $test_scenario->name }}</td>
+                                <td class="px-4 py-3">{{ $test_scenario->ts_name }}</td>
                             </template>
                             <template x-if="description_col">
-                                <td class="px-4 py-3">{{ $test_scenario->description }}</td>
+                                <td class="px-4 py-3" title="{{ $test_scenario->ts_description }}">
+                                    {{ Str::limit($test_scenario->ts_description, 30, '...') }}
+                                </td>
                             </template>
                             <template x-if="created_date_col">
                                 <td class="px-4 py-3">{{ $test_scenario->created_at->format('d-m-Y') }}</td>
@@ -206,7 +208,7 @@
                         <select wire:model.live='build_id' wire:change='updateModulesList' name="build_id"
                             id="build_id"
                             class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="">All</option>
+                            <option value="all">All</option>
                             @forelse ($builds as $build)
                                 <option class="overflow-ellipsis" wire:key='{{ $build->id }}'
                                     value="{{ $build->id }}">{{ $build->name }}</option>
@@ -227,7 +229,7 @@
                     <div class="relative">
                         <select wire:model.live='module_id' name="module_id" id="module_id"
                             class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="">All</option>
+                            <option value="all">All</option>
                             @isset($modules)
                                 @foreach ($modules as $module)
                                     <option class="hover:text-white" wire:key='{{ $module->id }}'
@@ -249,7 +251,7 @@
                     <div class="relative">
                         <select wire:model.live='requirement_id' name="requirement_id" id="requirement_id"
                             class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="">All</option>
+                            <option value="all">All</option>
                             @isset($requirements)
                                 @foreach ($requirements as $requirement)
                                     <option class="hover:text-white" wire:key='{{ $requirement->id }}'

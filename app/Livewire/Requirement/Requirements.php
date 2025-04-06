@@ -297,6 +297,11 @@ class Requirements extends Component
                         'user_id' => auth()->user()->id,
                     ]);
                 }
+                Comment::create([
+                    'comment' => auth()->user()->username.' updated requirement',
+                    'requirement_id' => $this->requirement->id,
+                    'user_id' => auth()->user()->id
+                ]);
 
                 Toaster::success('Requirement updated');
             }
