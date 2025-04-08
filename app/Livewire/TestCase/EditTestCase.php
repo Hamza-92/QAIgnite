@@ -47,7 +47,8 @@ class EditTestCase extends Component
     public function mount($test_case_id)
     {
         $this->tc_id = $test_case_id;
-        $this->test_case = TestCase::with('comments')->where('id', $test_case_id)
+        $this->test_case = TestCase::with('comments')
+            ->where('id', $test_case_id)
             ->where('tc_project_id', auth()->user()->default_project)
             ->first();
         if ($this->test_case) {

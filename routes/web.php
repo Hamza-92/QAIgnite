@@ -1,6 +1,9 @@
 <?php
 
 use App\Livewire\Build\Builds;
+use App\Livewire\Defect\DefectDetail;
+use App\Livewire\Defect\Defects;
+use App\Livewire\Defect\EditDefect;
 use App\Livewire\Module\Modules;
 use App\Livewire\Project\ArchiveProjects;
 use App\Livewire\Project\Projects;
@@ -54,14 +57,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/requirements', Requirements::class)->name('requirements');
     Route::get('requirements/{requirement_id}/detail', RequirementDetails::class)->name('requirement.detail');
 
-    // Test Scenarios Management
+    // Test Scenario Management
     Route::get('/test-scenarios', TestScenarios::class)->name('test-scenarios');
     Route::get('test-scenario/detail/{test_scenario_id}', TsDetail::class)->name('test-scenario.detail');
 
+    // Test Case Management
     Route::get('/test-cases', TestCases::class)->name('test-cases');
     Route::get('test-case/detail/{test_case_id}', TestCaseDetails::class)->name('test-case.detail');
     Route::get('test-case/edit/{test_case_id}', EditTestCase::class)->name('test-case.edit');
 
+    // Defect Management
+    Route::get('/defects', Defects::class)->name('defects');
+    Route::get('defect/detail/{defect_id}', DefectDetail::class)->name('defect.detail');
+    Route::get('defect/edit/{defect_id}', EditDefect::class)->name('defect.edit');
 });
 
 Route::middleware(['auth'])->group(function () {

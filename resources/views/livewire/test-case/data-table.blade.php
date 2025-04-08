@@ -341,8 +341,8 @@
                                         class="px-4 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 cursor-pointer">
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                     </button>
-                                    <div x-show="open" @click.outside="open = false"
-                                        class="absolute right-0 mt-2 p-1 text-md bg-white dark:bg-gray-800 rounded-md border dark:border-gray-700 shadow-lg z-10 flex items-center justify-center gap-2">
+                                    <div x-show="open" @click.outside="open = false" x-transition
+                                        class="absolute top-1/2 right-full mr-3 transform -translate-y-1/2 p-1 text-md bg-white dark:bg-gray-800 rounded-md border dark:border-gray-700 shadow-lg z-10 flex items-center justify-center gap-2 before:absolute before:top-1/2 before:left-full before:-translate-y-1/2 before:w-0 before:h-0 before:border-[6px] before:border-t-transparent before:border-b-transparent before:border-l-white dark:before:border-l-gray-800 before:border-r-transparent">
                                         <!-- View Button -->
                                         <a href="{{ route('test-case.detail', $test_case->id) }}" wire:navigate
                                             class="px-2 py-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors border-r dark:border-gray-700 cursor-pointer"
@@ -368,7 +368,7 @@
                                             wire:target="deleteTestCase({{ $test_case->id }})"
                                             @click="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'The test scenario will be permanently deleted!',
+                                                text: 'The test case will be permanently deleted!',
                                                 icon: 'warning',
                                                 showCancelButton: true,
                                                 confirmButtonColor: '#d33',
@@ -408,99 +408,56 @@
 
 
     {{-- Table Filter Model --}}
-    <div x-show='filter_box'
-        class="absolute top-0 left-0 h-screen w-screen flex items-center justify-center bg-gray-900/50">
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-            <div class="px-8 py-4 border-b dark:border-gray-600">
-                <h4 class="text-lg">Apply filters</h4>
-            </div>
-            <div class="px-8 py-4 grid md:grid-cols-2 gap-4">
+    <div x-show='filter_box' x-cloak
+    class="fixed inset-0 z-50 overflow-y-auto p-4 flex items-start justify-center bg-gray-900/50">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-6xl max-h-[90vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white dark:bg-gray-800 px-8 py-4 border-b dark:border-gray-600 z-10">
+            <h4 class="text-lg font-medium">Apply filters</h4>
+        </div>
+        <div class="px-8 py-4 grid lg:grid-cols-3 md:grid-cols-2 gap-4">
                 {{-- Build ID --}}
-                <div class="flex flex-col gap-2 w-full min-w-60 max-w-80">
-                    <label>Build</label>
-                    <div class="relative">
-                        <select wire:model.live='build_id' wire:change='updateModulesList' name="build_id"
-                            id="build_id"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @forelse ($builds as $build)
-                                <option class="overflow-ellipsis" wire:key='{{ $build->id }}'
-                                    value="{{ $build->id }}">{{ $build->name }}</option>
-                            @empty
-                            @endforelse
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='build_id'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='build_id' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Build' model='build_id' live='true'>
+                    <option value="all">All</option>
+                    @forelse ($builds as $build)
+                        <option class="overflow-ellipsis" wire:key='{{ $build->id }}'
+                            value="{{ $build->id }}">{{ $build->name }}</option>
+                    @empty
+                    @endforelse
+                </x-single-select-box>
 
                 {{-- Module --}}
-                <div class="flex flex-col gap-2">
-                    <label>Module</label>
-                    <div class="relative">
-                        <select wire:model.live='module_id' name="module_id" id="module_id"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @isset($modules)
-                                @foreach ($modules as $module)
-                                    <option class="hover:text-white" wire:key='{{ $module->id }}'
-                                        value="{{ $module->id }}">{{ $module->module_name }}</option>
-                                @endforeach
-                            @endisset
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='module_id'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='module_id' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Module' model='module_id' live='true'>
+                    <option value="all">All</option>
+                    @isset($modules)
+                        @foreach ($modules as $module)
+                            <option class="hover:text-white" wire:key='{{ $module->id }}'
+                                value="{{ $module->id }}">{{ $module->module_name }}</option>
+                        @endforeach
+                    @endisset
+                </x-single-select-box>
 
                 {{-- Requirements --}}
-                <div class="flex flex-col gap-2">
-                    <label>Requirement</label>
-                    <div class="relative">
-                        <select wire:model.live='requirement_id' name="requirement_id" id="requirement_id"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @isset($requirements)
-                                @foreach ($requirements as $requirement)
-                                    <option class="hover:text-white" wire:key='{{ $requirement->id }}'
-                                        value="{{ $requirement->id }}">{{ $requirement->requirement_title }}</option>
-                                @endforeach
-                            @endisset
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='requirement_id'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='requirement_id' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Requirement' model='requirement_id' live='true'>
+                    <option value="all">All</option>
+                    @isset($requirements)
+                        @foreach ($requirements as $requirement)
+                            <option class="hover:text-white" wire:key='{{ $requirement->id }}'
+                                value="{{ $requirement->id }}">{{ $requirement->requirement_title }}</option>
+                        @endforeach
+                    @endisset
+                </x-single-select-box>
+
                 {{-- Test Scenario --}}
-                <div class="flex flex-col gap-2">
-                    <label>Test Scenario</label>
-                    <div class="relative">
-                        <select wire:model.live='test_scenario_id' name="test_scenario_id" id="test_scenario_id"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @isset($test_scenarios)
-                                @foreach ($test_scenarios as $test_scenario)
-                                    <option class="hover:text-white" wire:key='{{ $test_scenario->id }}'
-                                        value="{{ $test_scenario->id }}">{{ $test_scenario->ts_name }}</option>
-                                @endforeach
-                            @endisset
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='test_scenario_id'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='test_scenario_id' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Test Scenario' model='test_scenario_id' live='true'>
+                    <option value="all">All</option>
+                    @isset($test_scenarios)
+                        @foreach ($test_scenarios as $test_scenario)
+                            <option class="hover:text-white" wire:key='{{ $test_scenario->id }}'
+                                value="{{ $test_scenario->id }}">{{ $test_scenario->ts_name }}</option>
+                        @endforeach
+                    @endisset
+                </x-single-select-box>
+
                 {{-- Status --}}
                 <div class="flex flex-col gap-2">
                     <label>Status</label>
@@ -618,11 +575,14 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center justify-center gap-4 px-4 py-3">
-                <button wire:click='clearFilter' class="px-4 py-2 rounded-md bg-red-500 text-gray-100">Clear
-                    All</button>
+            <div class="sticky bottom-0 bg-white dark:bg-gray-800 px-4 py-4 border-t dark:border-gray-600 flex items-center justify-center gap-4">
+                <button wire:click='clearFilter' class="px-4 py-2 rounded-md bg-red-500 text-gray-100 hover:bg-red-600 transition-colors text-sm">
+                    Clear All
+                </button>
                 <button @click='filter_box = false'
-                    class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700">Close</button>
+                    class="px-4 py-2 rounded-md bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm">
+                    Close
+                </button>
             </div>
         </div>
     </div>

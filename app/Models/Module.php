@@ -32,4 +32,8 @@ class Module extends Model
     public function test_cases() {
         return $this->hasMany(TestCase::class, 'tc_module_id');
     }
+
+    public function defects() {
+        return $this->hasMany(Defect::class, 'def_module_id');
+    }
 }

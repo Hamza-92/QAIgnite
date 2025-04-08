@@ -61,4 +61,8 @@ class Project extends Model
         return $this->hasMany(TestCase::class, 'tc_project_id');
     }
 
+    public function defects() {
+        return $this->hasMany(Defect::class, 'def_project_id');
+    }
+
 }

@@ -75,9 +75,22 @@
             </x-nav-link>
 
             {{-- Test Cases --}}
-            <x-nav-link :href="route('test-cases')" :active="request()->routeIs('test-cases') || request()->routeIs('test-case.detail')" wire:navigate>
+            <x-nav-link :href="route('test-cases')" :active="request()->routeIs('test-cases') || request()->routeIs('test-case.detail') || request()->routeIs('test-case.edit')" wire:navigate>
                 <i class="fa-solid fa-cube"></i>
                 <span x-show="open">Test Cases</span>
+            </x-nav-link>
+
+            {{-- Defect Management Section Title --}}
+            <div class="flex items-center text-gray-500 text-sm uppercase px-4 py-2">
+                <div class="flex-1 border-t border-gray-300"></div>
+                <span class="px-2" x-show="open">Defect Management</span>
+                <div class="flex-1 border-t border-gray-300"></div>
+            </div>
+
+            {{-- Defect Management --}}
+            <x-nav-link :href="route('defects')" :active="request()->routeIs('defects') || request()->routeIs('defect.detail') || request()->routeIs('defect.edit')" wire:navigate>
+                <i class="fa-solid fa-bug"></i>
+                <span x-show="open">Defects</span>
             </x-nav-link>
 
             {{-- Administration Section Title --}}

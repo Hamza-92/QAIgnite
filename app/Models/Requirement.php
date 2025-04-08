@@ -69,4 +69,8 @@ class Requirement extends Model
     public function testCases() {
         return $this->hasMany(TestCase::class, 'tc_requirement_id');
     }
+
+    public function defects() {
+        return $this->hasMany(Defect::class, 'def_requirement_id');
+    }
 }

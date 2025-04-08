@@ -73,4 +73,8 @@ class TestCase extends Model
     public function test_case_versions() {
         return $this->hasMany(TestCaseVersion::class, 'test_case_id');
     }
+
+    public function defects() {
+        return $this->hasMany(Defect::class, 'def_test_case_id');
+    }
 }

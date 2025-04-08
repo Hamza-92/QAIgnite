@@ -13,18 +13,20 @@ class SingleSelectBox extends Component
     public $label;
     public $type;
     public $model;
+    public $live;
     public $placeholder;
     public $required;
     public $disabled;
     public $readonly;
 
-    public function __construct($class = '', $name = '', $label = '', $type = 'text', $model='', $placeholder = '', $required = false, $disabled = false, $readonly = false)
+    public function __construct($class = '', $name = '', $label = '', $type = 'text', $model='', $live=false, $placeholder = '', $required = false, $disabled = false, $readonly = false)
     {
         $this->class = $class;
         $this->name = $name;
         $this->label = $label;
         $this->type = $type;
         $this->model = $model;
+        $this->live = $live;
         $this->placeholder = $placeholder;
         $this->required = $required;
         $this->disabled = $disabled;

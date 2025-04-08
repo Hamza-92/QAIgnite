@@ -71,4 +71,7 @@ class TestCaseVersion extends Model
     public function approval_request() {
         return $this->belongsTo(User::class, 'tc_approval_request');
     }
+    public function defects() {
+        return $this->hasMany(Defect::class, 'def_test_case_id');
+    }
 }

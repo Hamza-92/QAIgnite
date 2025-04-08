@@ -11,6 +11,7 @@ class Comment extends Model
         'user_id',
         'requirement_id',
         'test_case_id',
+        'defect_id',
     ];
 
     public function user() {

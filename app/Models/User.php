@@ -87,4 +87,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function assigned_test_cases() {
         return $this->hasMany(TestCase::class, 'tc_assigned_to');
     }
+
+    public function created_defects() {
+        return $this->hasMany(Defect::class, 'def_created_by');
+    }
+
+    public function assigned_defects() {
+        return $this->hasMany(Defect::class, 'def_assigned_to');
+    }
 }

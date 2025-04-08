@@ -5,7 +5,13 @@
         @endif
     </label>
     <div class="relative">
-        <select wire:model='{{ $model }}' name="{{ $model }}" id="{{ $model }}"
+        <select
+        @if ($live)
+        wire:model.live='{{ $model }}'
+        @else
+        wire:model='{{ $model }}'
+        @endif
+        name="{{ $model }}" id="{{ $model }}"
             class="appearance-none px-4 pr-2 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
             {{ $slot }}
         </select>

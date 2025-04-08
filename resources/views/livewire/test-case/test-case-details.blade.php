@@ -13,7 +13,7 @@
     </div>
 
     {{-- Detail --}}
-    <div class="px-8 py-4 w-full">
+    <div class="px-8 py-4 w-full mb-8">
         <div class="flex flex-row items-center space-x-2">
             <span class="text-sm text-gray-500">Created by</span>
             <span class="text-sm text-gray-500">{{ $test_case->created_by->username }}</span>
@@ -96,7 +96,13 @@
                         Open Defects
                     </th>
                     <td class="w-full px-4 py-3">
-                        0
+                        @forelse ($test_case->defects as $defect)
+                            <a href="{{ route('defect.detail', $defect->id) }}" class="hover:text-blue-500 underline" wire:navigate>
+                                {{ $defect->def_name }}
+                            </a>
+                        @empty
+                            <span class="text-gray-500">No open defects</span>
+                        @endforelse
                     </td>
                 </tr>
                 {{-- Testing Type --}}

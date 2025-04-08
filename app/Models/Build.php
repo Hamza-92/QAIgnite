@@ -44,4 +44,8 @@ class Build extends Model
     public function test_cases() {
         return $this->hasMany(TestCase::class, 'tc_build_id');
     }
+
+    public function defects() {
+        return $this->hasMany(Defect::class, 'def_build_id');
+    }
 }

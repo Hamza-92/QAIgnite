@@ -53,4 +53,9 @@ class TestScenario extends Model
     public function test_cases() {
         return $this->hasMany(TestCase::class, 'tc_test_scenario_id');
     }
+
+    public function defects()
+    {
+        return $this->hasMany(Defect::class, 'def_test_scenario_id');
+    }
 }
