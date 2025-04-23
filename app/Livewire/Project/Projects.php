@@ -3,6 +3,7 @@
 namespace App\Livewire\Project;
 
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
@@ -150,6 +151,12 @@ class Projects extends Component
         $project->update([
             'is_archived' => true
         ]);
+        if(auth()->user()->default_project == $id) {
+            $user = Auth::user();
+            $user->default_project = null;
+            $user->save();
+            $this->redirect(request()->header('Referer'), navigate: true);
+        }
         Toaster::success('Project archived successfully');
     }
 

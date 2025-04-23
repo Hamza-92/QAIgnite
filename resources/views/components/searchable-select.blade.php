@@ -41,9 +41,6 @@
                         {{ $option_attributes }} @click = 'open_model = false'
                         class="py-3 px-4 bg-white dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-left w-full">
                         {{ $option->name }}
-                        {{-- @if ($module->id == $module_id)
-                        <i class="fa-solid fa-check text-green-500"></i>
-                    @endif --}}
                     </button>
                 @empty
                     <p

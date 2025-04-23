@@ -43,38 +43,60 @@ class TestCase extends Model
         'tc_estimated_time' => 'integer',
     ];
 
-    public function project() {
+    public function project()
+    {
         return $this->belongsTo(Project::class, 'tc_project_id');
     }
-    public function build() {
+    public function build()
+    {
         return $this->belongsTo(Build::class, 'tc_build_id');
     }
-    public function module() {
+    public function module()
+    {
         return $this->belongsTo(Module::class, 'tc_module_id');
     }
-    public function requirement() {
+    public function requirement()
+    {
         return $this->belongsTo(Requirement::class, 'tc_requirement_id');
     }
-    public function test_scenario() {
+    public function test_scenario()
+    {
         return $this->belongsTo(TestScenario::class, 'tc_test_scenario_id');
     }
-    public function created_by() {
+    public function created_by()
+    {
         return $this->belongsTo(User::class, 'tc_created_by');
     }
-    public function assigned_to() {
+    public function assigned_to()
+    {
         return $this->belongsTo(User::class, 'tc_assigned_to');
     }
-    public function approval_request() {
+    public function approval_request()
+    {
         return $this->belongsTo(User::class, 'tc_approval_request');
     }
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(Comment::class, 'test_case_id');
     }
-    public function test_case_versions() {
+    public function test_case_versions()
+    {
         return $this->hasMany(TestCaseVersion::class, 'test_case_id');
     }
 
-    public function defects() {
+    public function defects()
+    {
         return $this->hasMany(Defect::class, 'def_test_case_id');
+    }
+
+    public function testCycles()
+    {
+        return $this->belongsToMany(TestCycle::class)
+            ->withPivot('status')
+            ->withTimestamps();
+    }
+    public function testCaseExecutions()
+    {
+        return $this->hasMany(TestCaseExecution::class, 'test_case_id');
     }
 }

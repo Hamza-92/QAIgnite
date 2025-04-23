@@ -1,9 +1,17 @@
-<header class="min-h-16 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-2">
-    <div x-data="{ open: false }" class="flex flex-1 flex-col-reverse sm:flex-row gap-4 sm:gap-8 items-center justify-between w-full">
+<header
+    class="min-h-16 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 py-2">
+    <div x-data="{ open: false }"
+        class="flex flex-1 flex-col-reverse sm:flex-row gap-4 sm:gap-8 items-center justify-between w-full">
         <!-- Project Dropdown -->
         <div class="relative w-full sm:w-72" @click.outside="open = false" @close.stop="open = false">
-            <div @click="open = !open; if(open) $wire.refreshList();"
-                class="flex items-center justify-between gap-4 bg-blue-100 dark:bg-blue-900/50 rounded-xl px-4 py-2 w-full sm:w-72">
+            <div @click="open = !open; if(open) $wire.refreshList();" x-data="{ glow: @json(session('blink_component')) }" x-init="if (glow) {
+                let el = $el;
+                el.classList.add('animate-pulse-bg');
+                setTimeout(() => {
+                    el.classList.remove('animate-pulse-bg');
+                }, 5000);
+            }"
+                class="flex items-center justify-between gap-4 bg-blue-100 dark:bg-blue-900/50 rounded-xl px-4 py-2 w-full sm:w-72 transition-colors">
                 <p class="text-sm">Project:
                     <span class="font-medium">
                         @isset($project)
@@ -51,7 +59,9 @@
                     class="flex gap-2 items-center p-2 px-4 border-r border-gray-300 dark:border-gray-500 hover:bg-blue-600 dark:hover:bg-blue-500 rounded-l-md w-full sm:w-auto">
                     <i class="fa-solid fa-plus"></i> New Project
                 </a>
-                <button @click='openModel = !openModel' class="p-2 px-3 hover:bg-blue-600 dark:hover:bg-blue-500 rounded-r-md cursor-pointer"><i class="fa-solid fa-angle-down"></i></button>
+                <button @click='openModel = !openModel'
+                    class="p-2 px-3 hover:bg-blue-600 dark:hover:bg-blue-500 rounded-r-md cursor-pointer"><i
+                        class="fa-solid fa-angle-down"></i></button>
 
                 <div x-show='openModel' x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"

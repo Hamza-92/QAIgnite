@@ -1,5 +1,5 @@
 <x-layouts.app.main>
     <main>
         {{ $slot }}
-</main>
+    </main>
 </x-layouts.app.main>

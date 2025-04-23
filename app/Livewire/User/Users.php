@@ -6,6 +6,7 @@ use App\Mail\InvitationMail;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\Role;
+use App\Models\TestCycle;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -274,5 +275,9 @@ class Users extends Component
             ->get();
 
         return view('livewire.user.users', compact(['users', 'roles', 'invitations']));
+    }
+
+    public function assignedCycles() {
+        return $this->belongsToMany(TestCycle::class, 'test_cycle_user');
     }
 }

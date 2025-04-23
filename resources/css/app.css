@@ -8,7 +8,9 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+    display: none !important;
+}
 
 @theme {
     --font-sans: "Poppins", "Instrument Sans", ui-sans-serif, system-ui,
@@ -76,6 +78,22 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
+@layer utilities {
+    @keyframes pulse-bg {
+        0%,
+        100% {
+            background-color: rgba(255, 0, 0, 0.2); /* Soft blue */
+        }
+        50% {
+            background-color: rgba(255, 0, 0, 0.8); /* Brighter blue */
+        }
+    }
+
+    .animate-pulse-bg {
+        animation: pulse-bg 1.5s ease-in-out 3;
+    }
+}
+
 .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
 }
@@ -109,7 +127,6 @@ select:focus[data-flux-control] {
 .dark .scrollbar-thin::-webkit-scrollbar-thumb {
     background: #4b5563;
 }
-
 
 /* \[:where(&)\]:size-4 {
     @apply size-4;

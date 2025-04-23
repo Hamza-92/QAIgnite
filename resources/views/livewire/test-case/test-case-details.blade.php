@@ -9,7 +9,7 @@
             class="flex items-center justify-center px-4 py-2 font-medium text-md bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-md transition-colors duration-300"
             wire:navigate>
             <span><i class="fa-solid fa-pen-to-square"></i> Edit</span>
-            </a>
+        </a>
     </div>
 
     {{-- Detail --}}
@@ -97,7 +97,8 @@
                     </th>
                     <td class="w-full px-4 py-3">
                         @forelse ($test_case->defects as $defect)
-                            <a href="{{ route('defect.detail', $defect->id) }}" class="hover:text-blue-500 underline" wire:navigate>
+                            <a href="{{ route('defect.detail', $defect->id) }}" class="hover:text-blue-500 underline"
+                                wire:navigate>
                                 {{ $defect->def_name }}
                             </a>
                         @empty

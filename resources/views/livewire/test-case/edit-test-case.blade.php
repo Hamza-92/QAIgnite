@@ -740,14 +740,14 @@
                 </div>
             </div>
             <div class="flex items-center justify-center gap-4 mt-8">
-                <a
-                    class="px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-                    Cancel
-                </a>
                 <button type="submit"
                     class="px-4 py-2 text-lg font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500">
                     Update Test Case
                 </button>
+                <a href="{{route('test-cases')}}"
+                    class="px-4 py-2 text-lg font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+                    Cancel
+                </a>
             </div>
         </form>
     </div>

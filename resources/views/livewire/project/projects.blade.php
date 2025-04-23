@@ -1,5 +1,14 @@
 <div>
-    <div class="px-8 py-4 flex-wrap gap-2 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
+
+    @if (session('error'))
+        <div class="px-8 py-2">
+            <x-alert type="error" :message="session('error')" />
+        </div>
+    @endif
+
+
+    <div
+        class="px-8 py-4 flex-wrap gap-2 flex items-center justify-between border-b border-gray-200 dark:border-gray-700">
         <button x-on:click="$wire.createProject = true"
             class="px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-md cursor-pointer"
             type="button">Create Project</button>
@@ -35,24 +44,23 @@
                             <td class="px-4 py-3">{{ $project->created_at }}</td>
                             <td class="text-center px-4 py-3">
                                 <div class="flex items-center justify-center gap-1">
-                                        <button class="px-2 py-1 hover:text-blue-500" type="button" title="Edit Project"
-                                            wire:click="edit({{ $project->id }})">
-                                            <i wire:loading.remove wire:target="edit({{ $project->id }})"
-                                                class="fa-solid fa-pen-to-square"></i>
-                                            <i wire:loading wire:target="edit({{ $project->id }})"
+                                    <button class="px-2 py-1 hover:text-blue-500" type="button" title="Edit Project"
+                                        wire:click="edit({{ $project->id }})">
+                                        <i wire:loading.remove wire:target="edit({{ $project->id }})"
+                                            class="fa-solid fa-pen-to-square"></i>
+                                        <i wire:loading wire:target="edit({{ $project->id }})"
+                                            class="fa-solid fa-spinner fa-spin"></i>
+                                    </button>
+                                    <x-confirmation-modal title="Archive Project"
+                                        message="Are you sure you want to archive this project?" method="archiveProject"
+                                        param="{{ $project->id }}" type="archive">
+                                        <button class="px-2 py-1 hover:text-red-500" type="button"
+                                            title="Archive Project">
+                                            <i wire:loading.remove wire:target="archive({{ $project->id }})"
+                                                class="fa-solid fa-box-archive"></i>
+                                            <i wire:loading wire:target="archive({{ $project->id }})"
                                                 class="fa-solid fa-spinner fa-spin"></i>
                                         </button>
-                                    <x-confirmation-modal title="Archive Project"
-                                        message="Are you sure you want to archive this project?"
-                                        method="archiveProject"
-                                        param="{{ $project->id }}" type="archive"
-                                        >
-                                            <button class="px-2 py-1 hover:text-red-500" type="button" title="Archive Project">
-                                                <i wire:loading.remove wire:target="archive({{ $project->id }})"
-                                                    class="fa-solid fa-box-archive"></i>
-                                                <i wire:loading wire:target="archive({{ $project->id }})"
-                                                    class="fa-solid fa-spinner fa-spin"></i>
-                                            </button>
                                     </x-confirmation-modal>
                                 </div>
                             </td>
@@ -84,7 +92,8 @@
                 <form wire:submit.prevent='save'>
                     <div class="grid sm:grid-cols-2 gap-4">
                         {{-- Project Name --}}
-                        <x-input-field label='Name' model='name' type='text' required='true' autocomplete='project-name' />
+                        <x-input-field label='Name' model='name' type='text' required='true'
+                            autocomplete='project-name' />
 
                         {{-- Project Types --}}
                         <div class="flex flex-col gap-1">
@@ -98,8 +107,8 @@
                                             <div class="bg-gray-200 dark:bg-gray-800 rounded-sm py-1 ">
                                                 <span
                                                     class="pr-1 border-r dark:border-gray-700 px-2">{{ $type }}</span>
-                                                <button wire:click='removeType({{ $index }})'
-                                                    class="px-1 pr-2" type="button">
+                                                <button wire:click='removeType({{ $index }})' class="px-1 pr-2"
+                                                    type="button">
                                                     <i wire:loading.remove
                                                         wire:target='removeType({{ $index }})'
                                                         class="fa-solid fa-xmark cursor-pointer"></i>

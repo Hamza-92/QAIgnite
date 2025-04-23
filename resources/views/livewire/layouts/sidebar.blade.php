@@ -7,7 +7,13 @@
         <!-- Logo & Toggle -->
         <div class="flex items-center h-16 justify-between px-4 border-b border-gray-200 dark:border-gray-700">
             <a x-show="open" href="{{ route('dashboard') }}" class="flex items-center space-x-2">
-                <x-application-logo />
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="text-xl font-bold text-gray-900 dark:text-white">QA Ignite</span>
+                </div>
             </a>
             <button @click="open = !open"
                 class="p-2 ml-1 rounded-md text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
@@ -91,6 +97,19 @@
             <x-nav-link :href="route('defects')" :active="request()->routeIs('defects') || request()->routeIs('defect.detail') || request()->routeIs('defect.edit')" wire:navigate>
                 <i class="fa-solid fa-bug"></i>
                 <span x-show="open">Defects</span>
+            </x-nav-link>
+
+            {{-- Test Lab Section Title --}}
+            <div class="flex items-center text-gray-500 text-sm uppercase px-4 py-2">
+                <div class="flex-1 border-t border-gray-300"></div>
+                <span class="px-2" x-show="open">Test Lab</span>
+                <div class="flex-1 border-t border-gray-300"></div>
+            </div>
+
+            {{-- Test Cycle --}}
+            <x-nav-link :href="route('test-cycles')" :active="request()->routeIs('test-cycles') || request()->routeIs('test-cycle.create') || request()->routeIs('test-cycle.edit') || request()->routeIs('test-cycle.detail')" wire:navigate>
+                <i class="fa-solid fa-bug"></i>
+                <span x-show="open">Test Cycle</span>
             </x-nav-link>
 
             {{-- Administration Section Title --}}
