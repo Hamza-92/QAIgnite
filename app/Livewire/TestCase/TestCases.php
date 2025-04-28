@@ -46,8 +46,8 @@ class TestCases extends Component
 
 
 
-    public bool $create;
-    public bool $edit;
+    public $create;
+    public $edit;
 
     public function mount()
     {
@@ -60,6 +60,8 @@ class TestCases extends Component
         $this->loadFormModules();
         $this->loadFormRequirements();
         $this->loadFormTestScenarios();
+
+        $this->create = session()->pull('create_test_case');
     }
 
     public function initializeValues()
@@ -282,16 +284,14 @@ class TestCases extends Component
         $this->tc_test_scenario_id = $this->test_case->tc_test_scenario_id;
         $this->tc_testing_type = $this->test_case->tc_testing_type;
         $this->tc_estimate_time = $this->test_case->tc_estimate_time;
-        $this->tc_pre_conditions = $this->test_case->tc_pre_conditions;
+        $this->tc_pre_conditions = $this->test_case->tc_preconditions;
         $this->tc_detailed_steps = $this->test_case->tc_detailed_steps;
-        $this->tc_expected_result = $this->test_case->tc_expected_result;
+        $this->tc_expected_result = $this->test_case->tc_expected_results;
         $this->tc_post_conditions = $this->test_case->tc_post_conditions;
         $this->tc_execution_type = $this->test_case->tc_execution_type;
         $this->tc_priority = $this->test_case->tc_priority;
         $this->tc_assigned_to = $this->test_case->tc_assigned_to;
         $this->tc_comment = '';
-
-        // $this->uploadedAttachments = $this->test_case->attachments ?? [];
 
         $this->edit = true;
         $this->create = false;
@@ -303,7 +303,7 @@ class TestCases extends Component
         $this->form_selected_build_name = $this->test_case->build->name ?? null;
         $this->form_selected_module_name = $this->test_case->module->module_name ?? null;
         $this->form_selected_requirement_name = $this->test_case->requirement->requirement_title ?? null;
-        $this->form_selected_test_scenario_name = $this->test_case->testScenario->ts_name ?? null;
+        $this->form_selected_test_scenario_name = $this->test_case->test_scenario->ts_name ?? null;
     }
 
     public function save()
@@ -412,7 +412,7 @@ class TestCases extends Component
             Toaster::success('Requirement added');
         }
         elseif ($this->edit) {
-            $attachmentIds = $this->requirement->tc_attachments ?? [];
+            $attachmentIds = $this->test_case->tc_attachments ?? [];
             if ($this->uploadedAttachments) {
                 foreach ($this->uploadedAttachments as $attachment) {
                     if (is_object($attachment)) {
@@ -420,7 +420,7 @@ class TestCases extends Component
                         $extension = $attachment->getClientOriginalExtension();
                         $timestamp = now()->timestamp;
                         $customName = "{$filename}_{$timestamp}.{$extension}";
-                        $path = $attachment->storeAs('attachments/requirement', $customName);
+                        $path = $attachment->storeAs('attachments/test-case', $customName);
                         $attachment = Attachment::create([
                             'filename' => $customName,
                             'file_type' => $attachment->getClientMimeType(),
@@ -443,9 +443,9 @@ class TestCases extends Component
                 'tc_test_scenario_id' => $this->tc_test_scenario_id,
                 'tc_testing_type' => $this->tc_testing_type,
                 'tc_estimate_time' => $this->tc_estimate_time,
-                'tc_pre_conditions' => $this->tc_pre_conditions,
+                'tc_preconditions' => $this->tc_pre_conditions,
                 'tc_detailed_steps' => $this->tc_detailed_steps,
-                'tc_expected_result' => $this->tc_expected_result,
+                'tc_expected_results' => $this->tc_expected_result,
                 'tc_post_conditions' => $this->tc_post_conditions,
                 'tc_execution_type' => $this->tc_execution_type,
                 'tc_priority' => $this->tc_priority,

@@ -41,8 +41,8 @@ class TestScenarios extends Component
     */
 
     /* -- Form Controller -- */
-    public bool $create;
-    public bool $edit;
+    public $create;
+    public $edit;
 
     public function resetForm()
     {
@@ -115,6 +115,7 @@ class TestScenarios extends Component
         $this->form_selected_module_name = $module['module_name'];
 
         $this->resetRequirementID();
+        $this->loadFormRequirements();
     }
 
     public function resetModuleID()
@@ -188,6 +189,8 @@ class TestScenarios extends Component
         $this->initializeValues();
         $this->create = false;
         $this->edit = false;
+
+        $this->create = session()->pull('create_test_scenario');
     }
 
     #[On('editTestScenario')]
@@ -215,7 +218,7 @@ class TestScenarios extends Component
             // Form module field data handling
             $this->form_modules = [];
             $this->form_search_module = null;
-            $this->form_selected_module_name = $this->test_scenario->ts_module_id ? Module::find($this->test_scenario->module_id)->ts_module_name : null;
+            $this->form_selected_module_name = $this->test_scenario->ts_module_id ? Module::find($this->test_scenario->ts_module_id)->module_name : null;
             $this->loadFormModules();
 
             // Form requirement field data handling

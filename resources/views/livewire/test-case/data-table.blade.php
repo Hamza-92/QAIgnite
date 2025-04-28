@@ -137,57 +137,57 @@
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="tc_priority_col" id="tc_priority_col" type="checkbox"
                                     class="dark:bg-gray-700" x-model="tc_priority_col">
-                                <label for="tc_priority_col" class="pl-4">Priority</label>
+                                <label for="tc_priority_col" class="pl-4 w-full">Priority</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="tc_test_case_col" id="tc_test_case_col" type="checkbox"
                                     class="dark:bg-gray-700" x-model="tc_test_case_col">
-                                <label for="tc_test_case_col" class="pl-4">Test Case</label>
+                                <label for="tc_test_case_col" class="pl-4 w-full">Test Case</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="tc_status_col" id="tc_status_col" type="checkbox" class="dark:bg-gray-700"
                                     x-model="tc_status_col">
-                                <label for="tc_status_col" class="pl-4">Status</label>
+                                <label for="tc_status_col" class="pl-4 w-full">Status</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="tc_build_col" id="tc_build_col" type="checkbox" class="dark:bg-gray-700"
                                     x-model="tc_build_col">
-                                <label for="tc_build_col" class="pl-4">Build</label>
+                                <label for="tc_build_col" class="pl-4 w-full">Build</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="tc_module_col" id="tc_module_col" type="checkbox"
                                     class="dark:bg-gray-700" x-model="tc_module_col">
-                                <label for="tc_module_col" class="pl-4">Module</label>
+                                <label for="tc_module_col" class="pl-4 w-full">Module</label>
                             </div>
                             <div class="flex items-center px-4 py-3 border-b dark:border-gray-700">
                                 <input name="tc_requirement_col" id="tc_requirement_col" type="checkbox"
                                     class="dark:bg-gray-700" x-model="tc_requirement_col">
-                                <label for="tc_requirement_col" class="pl-4">Requirement</label>
+                                <label for="tc_requirement_col" class="pl-4 w-full">Requirement</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="tc_test_scenario_col" id="tc_test_scenario_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="tc_test_scenario_col">
-                                <label for="tc_test_scenario_col" class="pl-4">Test Scenario</label>
+                                <label for="tc_test_scenario_col" class="pl-4 w-full">Test Scenario</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="tc_description_col" id="tc_description_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="tc_description_col">
-                                <label for="tc_description_col" class="pl-4">Description</label>
+                                <label for="tc_description_col" class="pl-4 w-full">Description</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="tc_assigned_to_col" id="tc_assigned_to_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="tc_assigned_to_col">
-                                <label for="tc_assigned_to_col" class="pl-4">Assigned To</label>
+                                <label for="tc_assigned_to_col" class="pl-4 w-full">Assigned To</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="tc_created_date_col" id="tc_created_date_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="tc_created_date_col">
-                                <label for="tc_created_date_col" class="pl-4">Created Date</label>
+                                <label for="tc_created_date_col" class="pl-4 w-full">Created Date</label>
                             </div>
                             <div class="flex items-center px-4 py-3">
                                 <input name="tc_execution_type_col" id="tc_execution_type_col" type="checkbox"
                                     class="dark:bg-gray-600" x-model="tc_execution_type_col">
-                                <label for="tc_execution_type_col" class="pl-4">Execution Type</label>
+                                <label for="tc_execution_type_col" class="pl-4 w-full">Execution Type</label>
                             </div>
                         </div>
                     </div>
@@ -216,28 +216,23 @@
                                 :sortDir="$sortDir" />
                         </template>
                         <template x-if="tc_build_col">
-                            <x-sortable-th name="tc_build_id" displayName="Build" :sortBy="$sortBy"
-                                :sortDir="$sortDir" />
+                            <th class="px-4 py-3 text-left font-medium">Build</th>
                         </template>
                         <template x-if="tc_module_col">
-                            <x-sortable-th name="tc_module_id" displayName="Module" :sortBy="$sortBy"
-                                :sortDir="$sortDir" />
+                            <th class="px-4 py-3 text-left font-medium">Module</th>
                         </template>
                         <template x-if="tc_requirement_col">
-                            <x-sortable-th name="tc_requirement_id" displayName="Requirement" :sortBy="$sortBy"
-                                :sortDir="$sortDir" />
+                            <th class="px-4 py-3 text-left font-medium">Requirement</th>
                         </template>
                         <template x-if="tc_test_scenario_col">
-                            <x-sortable-th name="tc_test_scenario_id" displayName="Test Scenario" :sortBy="$sortBy"
-                                :sortDir="$sortDir" />
+                            <th class="px-4 py-3 text-left font-medium">Test Scenario</th>
                         </template>
                         <template x-if="tc_description_col">
                             <x-sortable-th name="tc_description" displayName="Description" :sortBy="$sortBy"
                                 :sortDir="$sortDir" />
                         </template>
                         <template x-if="tc_assigned_to_col">
-                            <x-sortable-th name="assigned_to->username" displayName="Assigned To" :sortBy="$sortBy"
-                                :sortDir="$sortDir" />
+                            <th class="px-4 py-3 text-left font-medium">Assigned To</th>
                         </template>
                         <template x-if="tc_created_date_col">
                             <x-sortable-th name="created_at" displayName="Created Date" :sortBy="$sortBy"

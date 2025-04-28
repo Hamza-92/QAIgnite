@@ -130,6 +130,7 @@
                     @enderror
                 </div>
 
+                {{-- Start Date --}}
                 <div wire:ignore x-data x-init="flatpickr($refs.startDate, {
                     altInput: true,
                     altFormat: 'F j, Y',
@@ -153,6 +154,7 @@
                     @enderror
                 </div>
 
+                {{-- End Date --}}
                 <div wire:ignore x-data="{ endPicker: null, minDate: @entangle('start_date') }" x-init="endPicker = flatpickr($refs.endDate, {
                     altInput: true,
                     altFormat: 'F j, Y',
@@ -184,6 +186,7 @@
                     @enderror
                 </div>
 
+                {{-- Cycle Visibility --}}
                 <div>
                     <label class="flex gap-2 items-center">Cycle Visibility <i class="fa-solid fa-circle-info" title="By checking this, only the tester role will be able to view and execute the test cases assigned in that cycle."></i></label>
                     <div class="mt-1 py-2 flex gap-2 items-center">

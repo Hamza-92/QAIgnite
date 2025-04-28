@@ -12,7 +12,7 @@
         wire:model='{{ $model }}'
         @endif
         name="{{ $model }}" id="{{ $model }}"
-            class="appearance-none px-4 pr-2 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            class="appearance-none px-4 py-2 pr-8 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
             {{ $slot }}
         </select>
         <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">

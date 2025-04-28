@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'QA Ignite'
         ]);
 
+        $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
     }
 }

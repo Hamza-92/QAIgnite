@@ -22,7 +22,7 @@
             x-transition:enter-start="translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
             x-transition:leave="transition ease-in duration-200 transform"
             x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="translate-x-full opacity-0"
-            class="relative h-full max-h-screen w-full sm:w-[640px] md:w-[720px] ml-auto bg-white dark:bg-gray-900 shadow-xl overflow-y-auto">
+            class="relative h-full max-h-screen w-full max-w-3xl ml-auto bg-white dark:bg-gray-900 shadow-xl overflow-y-auto">
 
             <!-- Modal header -->
             <div
@@ -73,22 +73,16 @@
                                 :class="{ 'rotate-180': open }" x-text="open ? '−' : '+'"></span>
                         </div>
 
-                        <div x-show="open" class="mt-4" x-collapse.duration.300ms
-                            x-transition:enter="transition ease-out duration-300"
-                            x-transition:enter-start="opacity-0 transform scale-95"
-                            x-transition:enter-end="opacity-100 transform scale-100"
-                            x-transition:leave="transition ease-in duration-200"
-                            x-transition:leave-start="opacity-100 transform scale-100"
-                            x-transition:leave-end="opacity-0 transform scale-95">
+                        <div x-show="open" class="mt-4" x-collapse.duration.300ms>
                             <div class="grid md:grid-cols-2 gap-4">
                                 {{-- Build ID --}}
                                 <div class="flex flex-col gap-1 w-full">
                                     <label>Build</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700"
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700"
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.tc_build_id ? $wire.form_selected_build_name : 'Select build'"></span>
@@ -100,7 +94,7 @@
                                                         class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </button>
                                             </div>
-                                            <div class="text-gray-500 ml-3">
+                                            <div class="text-gray-500">
                                                 <i @click="open_model = !open_model" wire:loading.remove
                                                     wire:target='assignBuildID' class="fa-solid"
                                                     :class="open_model ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -149,9 +143,10 @@
                                     <label>Module</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700 "
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700 "
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div
+                                                class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.tc_module_id ? $wire.form_selected_module_name : 'Select module'"></span>
@@ -163,7 +158,7 @@
                                                         class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </button>
                                             </div>
-                                            <div class="text-gray-500 ml-3">
+                                            <div class="text-gray-500">
                                                 <i @click="open_model = !open_model" wire:loading.remove
                                                     wire:target='assignModuleID' class="fa-solid"
                                                     :class="open_model ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -212,9 +207,10 @@
                                     <label>Requirement</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700 "
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700 "
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div
+                                                class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.tc_requirement_id ? $wire.form_selected_requirement_name : 'Select requirement'"></span>
@@ -227,7 +223,7 @@
                                                         class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </button>
                                             </div>
-                                            <div class="text-gray-500 ml-3">
+                                            <div class="text-gray-500">
                                                 <i @click="open_model = !open_model" wire:loading.remove
                                                     wire:target='assignRequirementID' class="fa-solid"
                                                     :class="open_model ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -277,9 +273,10 @@
                                     <label>Test Scenario</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700 "
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700 "
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div
+                                                class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.tc_test_scenario_id ? $wire.form_selected_test_scenario_name : 'Select test scenario'"></span>
@@ -353,52 +350,7 @@
                                 <div class="flex flex-col gap-1">
                                     <label class="flex items-end justify-between" for="tc_estimate_time">Estimate Time
                                         <span class="text-xs">(HH:MM)</span></label>
-                                    <input type="text" name="tc_estimate_time" id="tc_estimate_time"
-                                        class="px-4 py-2 rounded-md border dark:border-gray-700"
-                                        x-data="{
-                                            displayValue: '00:00',
-                                            init() {
-                                                // Convert backend minutes to HH:MM on init
-                                                const backendMinutes = {{ $tc_estimate_time ?? 0 }};
-                                                const hours = Math.floor(backendMinutes / 60).toString().padStart(2, '0');
-                                                const minutes = (backendMinutes % 60).toString().padStart(2, '0');
-                                                this.displayValue = `${hours}:${minutes}`;
-                                                this.$el.value = this.displayValue;
-                                            }
-                                        }" x-model="displayValue"
-                                        x-on:input="
-            // Filter non-digit characters
-            let value = $event.target.value.replace(/[^\d]/g, '');
-
-            // Auto-insert colon after 2 digits
-            if (value.length > 2 && !value.includes(':')) {
-                value = value.substring(0, 2) + ':' + value.substring(2);
-            }
-
-            // Limit to 5 characters (HH:MM)
-            value = value.substring(0, 5);
-
-            // Update display value
-            this.displayValue = value;
-            $event.target.value = value;
-        "
-                                        x-on:blur="
-            // Validate and format on blur
-            const [hoursStr = '0', minutesStr = '0'] = this.displayValue.split(':');
-            const hours = Math.min(parseInt(hoursStr) || 0, 23);
-            const minutes = Math.min(parseInt(minutesStr) || 0, 59);
-
-            // Format display value
-            this.displayValue =
-                hours.toString().padStart(2, '0') + ':' +
-                minutes.toString().padStart(2, '0');
-            $event.target.value = this.displayValue;
-
-            // Convert to minutes and update backend
-            const totalMinutes = (hours * 60) + minutes;
-            $wire.set('tc_estimate_time', totalMinutes, false);
-        "
-                                        placeholder="00:00">
+                                    {{-- input component here --}}
                                     @error('tc_estimate_time')
                                         <span class="text-red-500">{{ $message }}</span>
                                     @enderror
@@ -406,19 +358,19 @@
 
                                 {{-- Pre Conditions --}}
                                 <x-textarea label='Pre Conditions' model='tc_pre_conditions' rows='5'
-                                    class="col-span-2"></x-textarea>
+                                    class="col-span-full"></x-textarea>
 
                                 {{-- Detailed Steps --}}
                                 <x-textarea label='Detailed Steps' model='tc_detailed_steps' rows='5'
-                                    class="col-span-2"></x-textarea>
+                                    class="col-span-full"></x-textarea>
 
                                 {{-- Expected Result --}}
                                 <x-textarea label='Expected Result' model='tc_expected_result' rows='5'
-                                    class="col-span-2"></x-textarea>
+                                    class="col-span-full"></x-textarea>
 
                                 {{-- Post Conditions --}}
                                 <x-textarea label='Post Conditions' model='tc_post_conditions' rows='5'
-                                    class="col-span-2"></x-textarea>
+                                    class="col-span-full"></x-textarea>
 
                                 {{-- Execution Type --}}
                                 <x-single-select-box label='Execution Type' model='tc_execution_type'>
@@ -442,10 +394,10 @@
 
                                 {{-- Comments --}}
                                 <x-textarea label='Comment' model='tc_comment' rows='5'
-                                    class="col-span-2"></x-textarea>
+                                    class="col-span-full"></x-textarea>
 
                                 {{-- Attachments --}}
-                                <div class="flex flex-col gap-1 col-span-2">
+                                <div class="flex flex-col gap-1 col-span-full">
                                     <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                                         x-on:livewire-upload-finish="isUploading = false"
                                         x-on:livewire-upload-error="isUploading = false"
@@ -479,6 +431,10 @@
                                                     accept=".gif,.jpg,.jpeg,.png,.pdf,.docx,.csv,.xls,.ppt,.mp4,.webm,.msg,.eml">
                                             </label>
                                         </div>
+                                        @if ($edit)
+                                            <span>Please visit the test case detail page to view and edit previous
+                                                attachments.</span>
+                                        @endif
                                         @error('tempAttachments.*')
                                             <span class="text-red-500">{{ $message }}</span>
                                         @enderror
@@ -540,14 +496,14 @@
                     </div>
 
                     {{-- Form Footer --}}
-                    <div class="flex items-center justify-center gap-4 mt-8">
-                        <x-primary-button type='submit'>
-                            Save <i wire:loading wire:target='save' class="fa-solid fa-spinner fa-spin"></i>
-                        </x-primary-button>
-
+                    <div class="flex items-center justify-center gap-4 mt-12">
+                        <button type="submit" wire:loading.attr='disabled'
+                            class="px-8 py-3 sm:w-42 transition duration-200 rounded-md bg-blue-500 hover:bg-blue-600 text-xl text-white dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer">Save
+                            <i wire:loading wire:target='save' class="fa-solid fa-spinner fa-spin"></i></button>
                         <button wire:click='resetForm' type="button" id="cancelButton"
-                            class="px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-800 dark:text-gray-100">
-                            Cancel <i wire:loading wire:target='resetForm' class="fa-solid fa-spinner fa-spin"></i>
+                            class="px-8 py-3 text-xl sm:w-42 transition duration-200 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer">
+                            <span>Cancel</span>
+                            <i wire:loading wire:target='resetForm' class="fa-solid fa-spinner fa-spin"></i>
                         </button>
                     </div>
                 </form>

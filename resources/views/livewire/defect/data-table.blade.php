@@ -203,10 +203,10 @@
                                 <td class="px-4 py-3">{{ $defect->assignedTo->username ?? '' }}</td>
                             </template>
                             <template x-if="defect_created_date_col">
-                                <td class="px-4 py-3">{{ $defect->created_at }}</td>
+                                <td class="px-4 py-3">{{ $defect->created_at->format('M j, Y g:i A') }}</td>
                             </template>
                             <template x-if="defect_modified_date_col">
-                                <td class="px-4 py-3">{{ $defect->updated_at }}</td>
+                                <td class="px-4 py-3">{{ $defect->updated_at->format('M j, Y g:i A') }}</td>
                             </template>
                             <td class="px-4 py-3 whitespace-nowrap">
                                 <div class="relative" x-data="{ open: false }">

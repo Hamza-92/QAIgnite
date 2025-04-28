@@ -56,6 +56,8 @@ class Defects extends Component
         $this->loadFormRequirements();
         $this->loadFormTestScenarios();
         $this->loadFormTestCases();
+
+        $this->create = session()->pull('create_defect');
     }
 
     // Return rules for validation

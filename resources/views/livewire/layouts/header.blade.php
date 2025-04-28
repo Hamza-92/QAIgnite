@@ -55,11 +55,11 @@
             <!-- New Project Button -->
             <div x-data="{ openModel: false }" @click.outside="openModel = false" @close.stop="openModel = false"
                 class="relative flex rounded-md bg-blue-500 dark:bg-blue-600 text-white text-sm ">
-                <a href="{{ url('projects?createProject=true') }}" wire:navigate
+                <button type="button" wire:click='createProject' type="button" wire:loading.attr='disabled'
                     class="flex gap-2 items-center p-2 px-4 border-r border-gray-300 dark:border-gray-500 hover:bg-blue-600 dark:hover:bg-blue-500 rounded-l-md w-full sm:w-auto">
                     <i class="fa-solid fa-plus"></i> New Project
-                </a>
-                <button @click='openModel = !openModel'
+                </button>
+                <button @click='openModel = !openModel' type="button"
                     class="p-2 px-3 hover:bg-blue-600 dark:hover:bg-blue-500 rounded-r-md cursor-pointer"><i
                         class="fa-solid fa-angle-down"></i></button>
 
@@ -69,18 +69,24 @@
                     x-transition:leave-end="opacity-0 scale-95"
                     class="absolute w-full z-50 mt-10 shadow-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-300">
                     <div class="flex flex-col">
-                        <a class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href=""><i class="fa-solid fa-plus"></i> Module</a>
-                        <a class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href=""><i class="fa-solid fa-plus"></i> Build</a>
-                        <a class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href=""><i class="fa-solid fa-plus"></i> Requirement</a>
-                        <a class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href=""><i class="fa-solid fa-plus"></i> Test Scenario</a>
-                        <a class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href=""><i class="fa-solid fa-plus"></i> Test Case</a>
-                        <a class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href=""><i class="fa-solid fa-plus"></i> Defect</a>
+                        <button type="button" wire:click='createBuild' wire:loading.attr='disabled'
+                            class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"><i
+                                class="fa-solid fa-plus"></i> Build</button>
+                        <button type="button" wire:click='createModule' wire:loading.attr='disabled'
+                            class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"><i
+                                class="fa-solid fa-plus"></i> Module</button>
+                        <button type="button" wire:click='createRequirement' wire:loading.attr='disabled'
+                            class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"><i
+                                class="fa-solid fa-plus"></i> Requirement</button>
+                        <button type="button" wire:click='createTestScenario' wire:loading.attr='disabled'
+                            class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"><i
+                                class="fa-solid fa-plus"></i> Test Scenario</button>
+                        <button type="button" wire:click='createTestCase' wire:loading.attr='disabled'
+                            class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"><i
+                                class="fa-solid fa-plus"></i> Test Case</button>
+                        <button type="button" wire:click='createDefect' wire:loading.attr='disabled'
+                            class="flex gap-2 items-center text-sm px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"><i
+                                class="fa-solid fa-plus"></i> Defect</button>
                     </div>
                 </div>
             </div>

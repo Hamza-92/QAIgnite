@@ -53,6 +53,34 @@ class Header extends Component
             ->get(['id', 'name']);
     }
 
+    public function createProject() {
+        session()->put('create_project', true);
+        $this->redirect(route('projects'), true);
+    }
+    public function createBuild() {
+        session()->put('create_build', true);
+        $this->redirect(route('builds'), true);
+    }
+    public function createModule() {
+        session()->put('create_module', true);
+        $this->redirect(route('modules'), true);
+    }
+    public function createRequirement() {
+        session()->put('create_requirement', true);
+        $this->redirect(route('requirements'), true);
+    }
+    public function createTestScenario() {
+        session()->put('create_test_scenario', true);
+        $this->redirect(route('test-scenarios'), true);
+    }
+    public function createTestCase() {
+        session()->put('create_test_case', true);
+        $this->redirect(route('test-cases'), true);
+    }
+    public function createDefect() {
+        session()->put('create_defect', true);
+        $this->redirect(route('defects'), true);
+    }
     public function logout(Logout $logout): void
     {
         $logout();

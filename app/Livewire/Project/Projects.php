@@ -13,17 +13,14 @@ class Projects extends Component
     use WithPagination;
 
     public $createProject = false;
-    protected $queryString = ['createProject'];
     public $editProject = false;
 
     public $project;
+    public $project_detail;
     public $name;
     public $description;
     public $status;
     public array $types;
-    public array $devices;
-    public array $os;
-    public array $browsers;
 
     // Table Properties
     public $search = '';
@@ -38,9 +35,8 @@ class Projects extends Component
         $this->description = '';
         $this->status = 'In Progress';
         $this->types = [];
-        $this->devices = [];
-        $this->os = [];
-        $this->browsers = [];
+
+        $this->createProject = session()->pull('create_project');
     }
 
     // Table Methods
@@ -81,40 +77,11 @@ class Projects extends Component
         unset($this->types[$index]);
     }
 
-    public function addOs($os_type)
-    {
-        if (!in_array($os_type, $this->os)) {
-            $this->os[] = $os_type;
+    public function loadProject($project_id) {
+        $this->project_detail = Project::findOrFail($project_id);
+        if(! $this->project_detail) {
+            Toaster::error('Project not found');
         }
-    }
-
-    public function removeOs($index)
-    {
-        unset($this->os[$index]);
-    }
-
-    public function addDevice($device)
-    {
-        if (!in_array($device, $this->devices)) {
-            $this->devices[] = $device;
-        }
-    }
-
-    public function removeDevice($index)
-    {
-        unset($this->devices[$index]);
-    }
-
-    public function addBrowser($browser)
-    {
-        if (!in_array($browser, $this->browsers)) {
-            $this->browsers[] = $browser;
-        }
-    }
-
-    public function removeBrowser($index)
-    {
-        unset($this->browsers[$index]);
     }
 
     public function resetForm()
@@ -127,9 +94,6 @@ class Projects extends Component
         $this->description = '';
         $this->status = 'In Progress';
         $this->types = [];
-        $this->devices = [];
-        $this->os = [];
-        $this->browsers = [];
     }
 
     public function edit($id)
@@ -140,9 +104,6 @@ class Projects extends Component
         $this->description = $this->project->description  ?? "";
         $this->status = $this->project->status;
         $this->types = $this->project->type ?? [];
-        $this->devices = $this->project->devices  ?? [];
-        $this->os = $this->project->os  ?? [];
-        $this->browsers = $this->project->browsers  ?? [];
         $this->editProject = true;
     }
 
@@ -168,9 +129,6 @@ class Projects extends Component
             'description' => 'nullable|sometimes|min:3|max:5000',
             'status' => 'required|string|in:In Progress,On Hold,Completed',
             'types' => 'array|nullable|sometimes',
-            'os' => 'array|nullable|sometimes',
-            'devices' => 'array|nullable|sometimes',
-            'browsers' => 'array|nullable|sometimes',
         ]);
         if ($this->createProject) {
             Project::create([
@@ -178,9 +136,6 @@ class Projects extends Component
                 'description' => $this->description,
                 'type' => $this->types,
                 'status' => $this->status,
-                'devices' => $this->devices,
-                'os' => $this->os,
-                'browsers' => $this->browsers,
                 'user_id' => auth()->user()->id,
                 'organization_id' => auth()->user()->organization_id,
             ]);
@@ -192,9 +147,6 @@ class Projects extends Component
                 'description' => $this->description,
                 'type' => $this->types,
                 'status' => $this->status,
-                'devices' => $this->devices,
-                'os' => $this->os,
-                'browsers' => $this->browsers,
             ]);
 
             Toaster::success('Project updated successfully');

@@ -66,6 +66,8 @@ class Modules extends Component
         $this->module_description = '';
         $this->module = null;
         $this->build_id = null;
+
+        $this->createModule = session()->pull('create_module');
     }
 
     public function resetForm() {

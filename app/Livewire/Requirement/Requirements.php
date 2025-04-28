@@ -58,6 +58,7 @@ class Requirements extends Component
     public function mount()
     {
         $this->initializeValues();
+        $this->create = session()->pull('create_requirement');
     }
 
     public function initializeValues()

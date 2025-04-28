@@ -48,6 +48,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class);
     }
 
+    public function hasPermission($permissionSlug)
+    {
+        if (!$this->role) {
+            return false;
+        }
+
+        return $this->role->hasPermission($permissionSlug);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasPermission('admin-access');
+    }
+
     public function projects() {
         return $this->hasMany(Project::class);
     }

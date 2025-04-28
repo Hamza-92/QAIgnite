@@ -12,13 +12,11 @@ class Role extends Model
         'deletable',
         'default',
         'organization_id',
-        'permissions'
     ];
 
     protected $casts = [
         'default' => 'boolean',
         'deletable' => 'boolean',
-        'permissions' => 'array'
     ];
 
     public function organization()
@@ -34,5 +32,15 @@ class Role extends Model
     public function invitations()
     {
         return $this->hasMany(Invitation::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function hasPermission($permissionSlug)
+    {
+        return $this->permissions()->where('slug', $permissionSlug)->exists();
     }
 }

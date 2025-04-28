@@ -70,6 +70,8 @@ class Builds extends Component
         $this->start_date = null;
         $this->end_date = null;
         $this->build = null;
+
+        $this->createBuild = session()->pull('create_build');
     }
 
     public function resetForm() {

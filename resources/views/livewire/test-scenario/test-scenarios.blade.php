@@ -8,21 +8,22 @@
     </div>
 
     {{-- Table --}}
-    <livewire:test-scenario.ts-data-table wire:listen="refreshTable"/>
+    <livewire:test-scenario.ts-data-table wire:listen="refreshTable" />
 
     {{-- Form --}}
-    <div x-data @keydown.escape.window="$wire.create = false; $wire.edit = false" x-show="$wire.create || $wire.edit"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-end" x-cloak>
-
-        <!-- Background overlay -->
-        <div class="fixed inset-0 bg-gray-900/50 dark:bg-gray-100/50 backdrop-blur-sm" x-transition.opacity></div>
+    <div x-data x-show="$wire.create || $wire.edit" x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-end bg-gray-900/50 dark:bg-gray-100/50"
+        x-cloak>
 
         <!-- Modal panel -->
         <div x-transition:enter="transition ease-out duration-300 transform"
             x-transition:enter-start="translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
             x-transition:leave="transition ease-in duration-200 transform"
             x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="translate-x-full opacity-0"
-            class="relative min-h-screen w-full sm:w-[640px] md:w-[720px] ml-auto bg-white dark:bg-gray-900 shadow-xl overflow-y-auto">
+            class="relative h-full max-h-screen w-full max-w-3xl ml-auto bg-white dark:bg-gray-900 shadow-xl overflow-y-auto">
 
             <!-- Modal header -->
             <div
@@ -43,7 +44,8 @@
                     <x-input-field label='Test Scenario Name' model='ts_name' type='text' required='true' />
 
                     {{-- Test Scenario Description --}}
-                    <x-textarea class="mt-4" label='Description' model='ts_description' required='true' rows='5'/>
+                    <x-textarea class="mt-4" label='Description' model='ts_description' required='true'
+                        rows='5' />
 
                     {{-- Status --}}
 
@@ -66,16 +68,16 @@
                             x-transition:leave="transition ease-in duration-200"
                             x-transition:leave-start="opacity-100 transform scale-100"
                             x-transition:leave-end="opacity-0 transform scale-95">
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid sm:grid-cols-2 gap-4">
 
                                 {{-- Build ID --}}
                                 <div class="flex flex-col gap-1 w-full">
                                     <label>Build ID</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700"
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700"
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.build_id ? $wire.form_selected_build_name : 'Select build id'"></span>
@@ -87,7 +89,7 @@
                                                         class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </button>
                                             </div>
-                                            <div class="text-gray-500 ml-3">
+                                            <div class="text-gray-500">
                                                 <i @click="open_model = !open_model" wire:loading.remove
                                                     wire:target='assignBuildID' class="fa-solid"
                                                     :class="open_model ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -136,9 +138,9 @@
                                     <label>Module ID</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700 "
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700 "
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.module_id ? $wire.form_selected_module_name : 'Select module id'"></span>
@@ -150,7 +152,7 @@
                                                         class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </button>
                                             </div>
-                                            <div class="text-gray-500 ml-3">
+                                            <div class="text-gray-500">
                                                 <i @click="open_model = !open_model" wire:loading.remove
                                                     wire:target='assignModuleID' class="fa-solid"
                                                     :class="open_model ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -199,9 +201,9 @@
                                     <label>Requirement ID</label>
                                     <div x-data='{open_model : false}' class="relative w-full"
                                         @click.outside="open_model = false" @close.stop="open_model = false">
-                                        <div class="w-full flex items-center px-4 py-2 rounded-md border dark:border-gray-700 "
+                                        <div class="w-full flex items-center gap-2 px-4 py-2 rounded-md border dark:border-gray-700 "
                                             :class="open_model ? 'outline-2' : ''">
-                                            <div class="w-full flex items-center justify-between gap-2">
+                                            <div class="w-full flex items-center justify-between gap-2 overflow-hidden">
                                                 <span @click="open_model = !open_model"
                                                     class="w-full overflow-ellipsis whitespace-nowrap overflow-hidden"
                                                     x-text="$wire.requirement_id ? $wire.form_selected_requirement_name : 'Select requirement id'"></span>
@@ -213,7 +215,7 @@
                                                         class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </button>
                                             </div>
-                                            <div class="text-gray-500 ml-3">
+                                            <div class="text-gray-500">
                                                 <i @click="open_model = !open_model" wire:loading.remove
                                                     wire:target='assignRequirementID' class="fa-solid"
                                                     :class="open_model ? 'fa-angle-up' : 'fa-angle-down'"></i>
@@ -233,7 +235,8 @@
                                                     type="text" name="search"
                                                     class="w-full text-sm outline-none focus:outline-none border-none focus:border-none focus:ring-none"
                                                     placeholder="Type to search">
-                                                <div wire:loading wire:target="form_search_requirement" class="ml-2">
+                                                <div wire:loading wire:target="form_search_requirement"
+                                                    class="ml-2">
                                                     <i class="fa-solid fa-spinner fa-spin text-gray-500"></i>
                                                 </div>
                                             </div>
@@ -261,14 +264,14 @@
                     </div>
 
                     {{-- Form Footer --}}
-                    <div class="flex items-center justify-center gap-4 mt-8">
-                        <x-primary-button type='submit'>
-                            Save <i wire:loading wire:target='save' class="fa-solid fa-spinner fa-spin"></i>
-                        </x-primary-button>
-
+                    <div class="flex items-center justify-center gap-4 mt-12">
+                        <button type="submit" wire:loading.attr='disabled'
+                            class="px-8 py-3 sm:w-42 transition duration-200 rounded-md bg-blue-500 hover:bg-blue-600 text-xl text-white dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer">Save
+                            <i wire:loading wire:target='save' class="fa-solid fa-spinner fa-spin"></i></button>
                         <button wire:click='resetForm' type="button" id="cancelButton"
-                            class="px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-gray-700 dark:hover:bg-gray-800 dark:text-gray-100">
-                            Cancel <i wire:loading wire:target='resetForm' class="fa-solid fa-spinner fa-spin"></i>
+                            class="px-8 py-3 text-xl sm:w-42 transition duration-200 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 cursor-pointer">
+                            <span>Cancel</span>
+                            <i wire:loading wire:target='resetForm' class="fa-solid fa-spinner fa-spin"></i>
                         </button>
                     </div>
                 </form>

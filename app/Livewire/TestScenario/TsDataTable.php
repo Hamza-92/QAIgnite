@@ -36,7 +36,7 @@ class TsDataTable extends Component
     public $requirement_id;
 
     // Filter: created_by field data handling
-    public $users;
+    public $created_by_users;
     public $created_by;
 
     public function mount()
@@ -47,7 +47,7 @@ class TsDataTable extends Component
         $this->created_by = null;
 
         // Fetch users who have created test scenarios in the project
-        $this->users = User::whereHas('test_scenarios', function ($query) {
+        $this->created_by_users = User::whereHas('test_scenarios', function ($query) {
             $query->where('ts_project_id', auth()->user()->default_project);
         })
         ->select('id', 'name')
@@ -87,6 +87,9 @@ class TsDataTable extends Component
 
     public function updatedCreatedBy()
     {
+        if($this->created_by == 'all') {
+            $this->created_by = null;
+        }
         $this->resetPage();
     }
 

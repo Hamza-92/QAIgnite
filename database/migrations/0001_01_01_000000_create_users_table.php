@@ -21,8 +21,7 @@ return new class extends Migration {
             $table->string('description');
             $table->boolean('deletable')->default(true);
             $table->boolean('default')->default(false);
-            $table->json('permissions')->nullable();
-            $table->foreignId('organization_id')->constrained('organizations');
+            $table->foreignId('organization_id')->constrained('organizations')->cascadeOnDelete();
             $table->timestamps();
         });
 
@@ -34,12 +33,25 @@ return new class extends Migration {
             $table->string('password');
             $table->string('avatar')->nullable();
             $table->string('default_project')->nullable();
-            $table->foreignId('organization_id')->constrained('organizations');
-            $table->foreignId('role_id')->constrained('roles');
+            $table->foreignId('organization_id')->constrained('organizations')->cascadeOnDelete();
+            $table->foreignId('role_id')->nullable()->constrained('roles')->nullOnDelete();
             $table->boolean('is_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug')->nullable();
+            $table->string('description')->nullable();
+        });
+
+        Schema::create('permission_role', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
+            $table->foreignId('permission_id')->constrained('permissions')->cascadeOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
