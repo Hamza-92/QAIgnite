@@ -454,121 +454,57 @@
                 </x-single-select-box>
 
                 {{-- Status --}}
-                <div class="flex flex-col gap-2">
-                    <label>Status</label>
-                    <div class="relative">
-                        <select wire:model.live='status' name="status" id="status"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            <option value="pending">Pending Approval</option>
-                            <option value="approved">Approved</option>
-                            <option value="rejected">Rejected</option>
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='status'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='status' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Status' model='status' live='true'>
+                    <option value="all">All</option>
+                    <option value="pending">Pending Approval</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </x-single-select-box>
+
                 {{-- Testing Type --}}
-                <div class="flex flex-col gap-2">
-                    <label>Testing Type</label>
-                    <div class="relative">
-                        <select wire:model.live='testing_type' name="testing_type" id="testing_type"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            <option value="field-validation">Field Validation</option>
-                            <option value="content">Content</option>
-                            <option value="cross-browser/os">Cross Browser/OS</option>
-                            <option value="ui/ux">UI/UX</option>
-                            <option value="security">Security</option>
-                            <option value="performance">Performance</option>
-                            <option value="functional">Functional</option>
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='testing_type'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='testing_type' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Testing Type' model='testing_type' live='true'>
+                    <option value="all">All</option>
+                    <option value="field-validation">Field Validation</option>
+                    <option value="content">Content</option>
+                    <option value="cross-browser/os">Cross Browser/OS</option>
+                    <option value="ui/ux">UI/UX</option>
+                    <option value="security">Security</option>
+                    <option value="performance">Performance</option>
+                    <option value="functional">Functional</option>
+                </x-single-select-box>
+                
                 {{-- Execution Type --}}
-                <div class="flex flex-col gap-2">
-                    <label>Execution Type</label>
-                    <div class="relative">
-                        <select wire:model.live='execution_type' name="execution_type" id="execution_type"
-                            class="appearance-none px-4 pr-9 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            <option value="cypress">Cypress</option>
-                            <option value="automated">Automated</option>
-                            <option value="manual">Manual</option>
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='execution_type'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='execution_type' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Execution Type' model='execution_type' live='true'>
+                    <option value="all">All</option>
+                    <option value="cypress">Cypress</option>
+                    <option value="automated">Automated</option>
+                    <option value="manual">Manual</option>
+                </x-single-select-box>
+
                 {{-- Created By --}}
-                <div class="flex flex-col gap-2">
-                    <label>Created By</label>
-                    <div class="relative">
-                        <select wire:model.live='created_by' name="created_by" id="created_by"
-                            class="appearance-none px-4 pr-2 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @foreach ($created_by_users as $user)
-                                <option class="hover:text-white" wire:key='{{ $user->id }}'
-                                    value="{{ $user->id }}">{{ $user->username }}</option>
-                            @endforeach
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='created_by'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='created_by' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Created By' model='created_by' live='true'>
+                    <option value="all">All</option>
+                    @foreach ($created_by_users as $user)
+                        <option class="hover:text-white" wire:key='{{ $user->id }}'
+                            value="{{ $user->id }}">{{ $user->username }}</option>
+                    @endforeach
+                </x-single-select-box>
                 {{-- Assigned To --}}
-                <div class="flex flex-col gap-2">
-                    <label>Assigned To</label>
-                    <div class="relative">
-                        <select wire:model.live='assigned_to' name="assigned_to" id="assigned_to"
-                            class="appearance-none px-4 pr-2 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @foreach ($assigned_to_users as $user)
-                                <option class="hover:text-white" wire:key='{{ $user->id }}'
-                                    value="{{ $user->id }}">{{ $user->username }}</option>
-                            @endforeach
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='assigned_to'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='assigned_to' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Assigned To' model='assigned_to' live='true'>
+                    <option value="all">All</option>
+                    @foreach ($assigned_to_users as $user)
+                        <option class="hover:text-white" wire:key='{{ $user->id }}'
+                            value="{{ $user->id }}">{{ $user->username }}</option>
+                    @endforeach
+                </x-single-select-box>
                 {{-- Approval Request --}}
-                <div class="flex flex-col gap-2">
-                    <label>Approval Request</label>
-                    <div class="relative">
-                        <select wire:model.live='approval_requested' name="approval_requested"
-                            id="approval_requested"
-                            class="appearance-none px-4 pr-2 py-2 w-full rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                            <option value="all">All</option>
-                            @foreach ($approval_requested_users as $user)
-                                <option class="hover:text-white" wire:key='{{ $user->id }}'
-                                    value="{{ $user->id }}">{{ $user->username }}</option>
-                            @endforeach
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                            <i @click="open_model = !open_model" wire:loading.remove wire:target='approval_requested'
-                                class="fa-solid fa-angle-down"></i>
-                            <i wire:loading wire:target='approval_requested' class="fa-solid fa-spinner fa-spin"></i>
-                        </div>
-                    </div>
-                </div>
+                <x-single-select-box label='Approval Request' model='approval_requested' live='true'>
+                    <option value="all">All</option>
+                    @foreach ($approval_requested_users as $user)
+                        <option class="hover:text-white" wire:key='{{ $user->id }}'
+                            value="{{ $user->id }}">{{ $user->username }}</option>
+                    @endforeach
+                </x-single-select-box>
             </div>
             <div class="sticky bottom-0 bg-white dark:bg-gray-800 px-4 py-4 border-t dark:border-gray-600 flex items-center justify-center gap-4">
                 <button wire:click='clearFilter' class="px-4 py-2 rounded-md bg-red-500 text-gray-100 hover:bg-red-600 transition-colors text-sm">

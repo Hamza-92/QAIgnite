@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Build\Builds;
+use App\Livewire\Dashboard\ProjectDashboard;
 use App\Livewire\Defect\AttachDefect;
 use App\Livewire\Defect\DefectDetail;
 use App\Livewire\Defect\Defects;
@@ -32,11 +33,11 @@ use App\Livewire\User\Users;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing-page');
 })->name('home');
 
 Route::middleware(['auth', 'verified', 'hasProject'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', ProjectDashboard::class)->name('dashboard');
 
     // User Management
     Route::get('users', Users::class)->name('users');
