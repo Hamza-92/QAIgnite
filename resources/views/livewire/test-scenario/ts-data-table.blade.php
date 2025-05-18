@@ -127,7 +127,7 @@
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                     </button>
                                     <div x-show="open" @click.outside="open = false" x-transition
-                                        class="absolute top-1/2 right-full mr-3 transform -translate-y-1/2 p-1 text-md bg-white dark:bg-gray-800 rounded-md border dark:border-gray-700 shadow-lg z-10 flex items-center justify-center gap-2 before:absolute before:top-1/2 before:left-full before:-translate-y-1/2 before:w-0 before:h-0 before:border-[6px] before:border-t-transparent before:border-b-transparent before:border-l-white dark:before:border-l-gray-800 before:border-r-transparent">
+                                        class="absolute top-1/2 right-full mr-3 transform -translate-y-1/2 p-1 text-md bg-white dark:bg-gray-800 rounded-md border dark:border-gray-700 shadow-lg z-10 flex items-center justify-center gap-1 before:absolute before:top-1/2 before:left-full before:-translate-y-1/2 before:w-0 before:h-0 before:border-[6px] before:border-t-transparent before:border-b-transparent before:border-l-white dark:before:border-l-gray-800 before:border-r-transparent">
                                         <!-- View Button -->
                                         <a href="{{ route('test-scenario.detail', $test_scenario->id) }}" wire:navigate
                                             class="px-2 py-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors border-r dark:border-gray-700 cursor-pointer"
@@ -148,10 +148,18 @@
                                             </span>
                                         </button>
 
+                                        {{-- <!-- AI Test Case Generator Button -->
+                                        <a href="{{route('ai-test-case-generator')}}" wire:navigate
+                                            wire:loading.attr="disabled"
+                                            class="px-2 py-1 text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 transition-colors border-r dark:border-gray-700 cursor-pointer"
+                                            title="Generate AI Test Cases">
+                                            <i class="fa-solid fa-robot"></i>
+                                        </a> --}}
+
                                         <!-- Delete Button -->
                                         <button type="button" wire:loading.attr="disabled"
                                             @click="confirmationModel = true; test_scenario_id = {{ $test_scenario->id }}"
-                                            class="p-1 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors"
+                                            class="p-1 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors cursor-pointer"
                                             title="Delete">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>

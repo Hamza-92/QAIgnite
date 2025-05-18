@@ -182,7 +182,14 @@
                         Detailed Steps
                     </th>
                     <td class="w-full px-4 py-3">
-                        {{ $test_case->tc_detailed_steps ?? '' }}
+                        <div class="[&>*:not(:first-child)]:mt-1">
+                            @forelse (explode("\n", $test_case->tc_detailed_steps) as $step)
+                                @if (trim($step))
+                                    <div>{{ $step }}</div>
+                                @endif
+                            @empty
+                            @endforelse
+                        </div>
                     </td>
                 </tr>
                 {{-- Expected Result --}}

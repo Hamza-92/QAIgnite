@@ -11,7 +11,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // AiTestGeneration::addGlobalScope('user', function ($query) {
+        //     $query->where('user_id', auth()->id());
+        // });
+
     }
 
     /**

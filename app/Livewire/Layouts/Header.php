@@ -87,6 +87,13 @@ class Header extends Component
 
         $this->redirect('/', navigate: true);
     }
+
+    protected $listeners = ['profile-updated' => 'handleProfileUpdated'];
+
+    public function handleProfileUpdated()
+    {
+        // $this->img = auth()->user()->profile_image;
+    }
     public function render()
     {
         return view('livewire.layouts.header');

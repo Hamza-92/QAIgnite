@@ -112,6 +112,11 @@
                 <span x-show="open">Test Cycle</span>
             </x-nav-link>
 
+            {{-- Defect Report --}}
+            <x-nav-link :href="route('reports.defect-report')" :active="request()->routeIs('reports.defect-report')" wire:navigate>
+                <i class="fa-solid fa-user-cog"></i>
+                <span x-show="open">Defect Report</span>
+            </x-nav-link>
             {{-- Administration Section Title --}}
             <div class="flex items-center text-gray-500 text-sm uppercase px-4 py-2">
                 <div class="flex-1 border-t border-gray-300"></div>
@@ -132,6 +137,8 @@
                 <i class="fa-solid fa-user-cog"></i>
                 <span x-show="open">User Management</span>
             </x-nav-link>
+
+
         </nav>
 
         <!-- Logout -->

@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\AiTestCaseGenerator\TestCaseGenerator;
 use App\Livewire\Build\Builds;
 use App\Livewire\Dashboard\ProjectDashboard;
 use App\Livewire\Defect\AttachDefect;
@@ -9,18 +10,20 @@ use App\Livewire\Defect\EditDefect;
 use App\Livewire\Module\Modules;
 use App\Livewire\Project\ArchiveProjects;
 use App\Livewire\Project\Projects;
+use App\Livewire\Reports\DefectReport;
+use App\Livewire\Reports\TestCase\TestCaseReport;
 use App\Livewire\Requirement\RequirementDetails;
 use App\Livewire\Requirement\Requirements;
 use App\Livewire\Role\CreateRole;
 use App\Livewire\Role\EditRole;
 use App\Livewire\Role\Roles;
+use App\Livewire\Settings\Profile;
 use App\Livewire\Team\Team;
 use App\Livewire\TestCase\EditTestCase;
 use App\Livewire\TestCase\TestCaseDetails;
 use App\Livewire\TestCase\TestCases;
 use App\Livewire\TestCaseExecution\ExecuteTestCase;
 use App\Livewire\TestCaseExecution\ListTestCases;
-use App\Livewire\TestCaseGenerator;
 use App\Livewire\TestCycle\AssignTestCases;
 use App\Livewire\TestCycle\CreateCycle;
 use App\Livewire\TestCycle\EditCycle;
@@ -91,13 +94,17 @@ Route::middleware(['auth', 'verified', 'hasProject'])->group(function () {
     Route::get('/test-case-execution/execute/{test_cycle_id}/{test_case_id}', ExecuteTestCase::class)->name('test-case-execution.execute');
     Route::get('/test-case-execution/attach-defect/{test_cycle_id}/{test_case_id}/{test_case_execution_id}', AttachDefect::class)->name('test-case-execution.attach-defect');
 
-    Route::get('/ai-test', TestCaseGenerator::class);
+    Route::get('/generate-test-cases', TestCaseGenerator::class)->name('ai-test-case-generator');
+
+    // Reports
+    Route::get('/reports/defect-report', DefectReport::class)->name('reports.defect-report');
+    Route::get('/reports/test-case-report', TestCaseReport::class)->name('reports.test-case-report');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
-    // Route::get('profile', Profile::class)->name('profile');
+    Route::get('profile', Profile::class)->name('profile');
     // Route::get('profile', Profile::class)->name('settings.profile');
     // Route::get('password', Password::class)->name('settings.password');
     // Route::get('settings/appearance', Appearance::class)->name('settings.appearance');

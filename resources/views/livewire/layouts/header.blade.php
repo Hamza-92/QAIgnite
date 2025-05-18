@@ -52,6 +52,10 @@
 
         <!-- Action Buttons & Profile -->
         <div class="flex gap-4 items-center justify-between sm:justify-end w-full sm:w-auto">
+            {{-- Ai Test Case Generator --}}
+            <a href="{{ route('ai-test-case-generator') }}" title="AI Test Case Generator" wire:navigate
+                class="px-2 py-1 rounded-md bg-green-100 dark:bg-green-900/50 text-green-500 hover:text-green-600 dark:hover:text-green-600 text-lg"><i
+                    class="fa-solid fa-robot"></i></a>
             <!-- New Project Button -->
             <div x-data="{ openModel: false }" @click.outside="openModel = false" @close.stop="openModel = false"
                 class="relative flex rounded-md bg-blue-500 dark:bg-blue-600 text-white text-sm ">
@@ -109,11 +113,11 @@
                             <flux:radio value="dark" icon="moon"></flux:radio>
                             <flux:radio value="system" icon="computer-desktop"></flux:radio>
                         </flux:radio.group>
-                        {{-- <x-dropdown-link :href="route('profile')" wire:navigate>
+                        <x-dropdown-link :href="route('profile')" wire:navigate class="mt-1">
                             {{ __('Profile') }}
-                        </x-dropdown-link> --}}
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
+                        </x-dropdown-link>
+                        <button wire:click="logout" class="w-full text-start mt-1 cursor-pointer">
+                            <x-dropdown-link class="rounded-b-md">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </button>

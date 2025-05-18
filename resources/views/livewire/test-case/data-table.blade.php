@@ -11,7 +11,9 @@
     tc_description_col: true,
     tc_assigned_to_col: false,
     tc_created_date_col: true,
-    tc_execution_type_col: true
+    tc_execution_type_col: true,
+    test_case_id: null,
+    confirmationModel: false
 }">
 
 
@@ -360,28 +362,10 @@
 
                                         <!-- Delete Button -->
                                         <button type="button" wire:loading.attr="disabled"
-                                            wire:target="deleteTestCase({{ $test_case->id }})"
-                                            @click="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: 'The test case will be permanently deleted!',
-                                                icon: 'warning',
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#d33',
-                                                cancelButtonColor: '#3085d6',
-                                                confirmButtonText: 'Delete'
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $wire.deleteTestCase({{ $test_case->id }})
-                                                }
-                                            })"
-                                            class="px-2 py-1 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors"
+                                            @click="confirmationModel = true; test_case_id = {{ $test_case->id }}"
+                                            class="p-1 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors cursor-pointer"
                                             title="Delete">
-                                            <i wire:loading.remove wire:target="deleteTestCase({{ $test_case->id }})"
-                                                class="fa-solid fa-trash-can"></i>
-                                            <span wire:loading wire:target="deleteTestCase({{ $test_case->id }})"
-                                                class="ml-1">
-                                                <i class="fa-solid fa-spinner animate-spin"></i>
-                                            </span>
+                                            <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -401,6 +385,36 @@
         </div>
     </div>
 
+    {{-- Delete Confirmation Modal --}}
+    <div x-show="confirmationModel" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0" @keydown.escape.window="confirmationModel = false; test_scenario_id = null"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 dark:bg-gray-100/50"
+        style="display: none;">
+        <div
+            class="flex flex-col items-center text-center bg-white dark:bg-gray-900 rounded-lg p-6 w-full max-w-md mx-auto shadow-lg">
+            <div class="text-red-500 mb-2 text-3xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Delete Test Case</h3>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Are you sure you want to delete this test case?
+            </p>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Remember! this action cannot be undone.</p>
+
+            <div class="mt-6 space-x-3">
+                <button type="button"
+                    @click="$wire.deleteTestCase(test_case_id); confirmationModel = false; test_case_id = null"
+                    class="px-5 py-2 rounded-md text-white bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 focus:ring-2 focus:ring-red-400">
+                    Delete
+                </button>
+                <button type="button" @click="confirmationModel = false; test_case_id = null"
+                    class="px-5 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-2 focus:ring-gray-400">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
 
     {{-- Table Filter Model --}}
     <div x-show='filter_box' x-cloak
@@ -472,7 +486,7 @@
                     <option value="performance">Performance</option>
                     <option value="functional">Functional</option>
                 </x-single-select-box>
-                
+
                 {{-- Execution Type --}}
                 <x-single-select-box label='Execution Type' model='execution_type' live='true'>
                     <option value="all">All</option>

@@ -2,9 +2,14 @@
     <div
         class="px-8 py-4 flex items-center flex-wrap gap-4 justify-between border-b border-gray-200 dark:border-gray-700">
         <h2 class="text-lg">Requirement Management</h2>
-        <button x-on:click="$wire.create = true"
-            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer"
-            type="button">Create Requirement</button>
+        <div class="flex gap-4 flex-wrap items-center">
+            <a href="{{route('ai-test-case-generator')}}" wire:navigate
+                    class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 cursor-pointer"
+                    type="button"><i class="fa-solid fa-robot"></i> Generate Test Cases with AI</a>
+            <button x-on:click="$wire.create = true"
+                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer"
+                type="button">Create Requirement</button>
+        </div>
     </div>
 
     {{-- Data Table --}}

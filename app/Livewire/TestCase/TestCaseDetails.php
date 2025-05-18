@@ -64,7 +64,7 @@ class TestCaseDetails extends Component
                 return $version;
                 });
 
-            $attachments = Attachment::whereIn('id', $this->test_case->tc_attachments)->get();
+            $attachments = Attachment::whereIn('id', $this->test_case->tc_attachments ?? [])->get();
         // dd($test_case);
         return view('livewire.test-case.test-case-details', compact(['test_case_versions', 'attachments']));
     }

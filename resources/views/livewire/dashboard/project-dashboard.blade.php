@@ -46,7 +46,7 @@
         {{-- Defects Tab --}}
         <div x-show="activeTab === 'defects'" class="py-4 w-full overflow-auto">
             <div class="grid md:grid-cols-2 gap-4">
-                @livewire('components.dashboard.charts.defects.defects-by-priority-chart')
+                {{-- @livewire('components.dashboard.charts.defects.defects-by-priority-chart') --}}
                 @livewire('components.dashboard.charts.defects.defects-by-status-chart')
             </div>
         </div>

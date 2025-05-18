@@ -2,9 +2,14 @@
     <div
         class="px-8 py-4 flex items-center flex-wrap gap-4 justify-between border-b border-gray-200 dark:border-gray-700">
         <h2 class="text-lg">Test Cases</h2>
-        <button x-on:click="$wire.create = true"
-            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer"
-            type="button"><i class="fa-solid fa-plus"></i> Test Case</button>
+        <div class="flex items-center gap-4 flex-wrap">
+            <a href="{{route('ai-test-case-generator')}}" wire:navigate
+                class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 cursor-pointer"
+                type="button"><i class="fa-solid fa-robot"></i> Generate Test Cases with AI</a>
+            <button x-on:click="$wire.create = true"
+                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 cursor-pointer"
+                type="button"><i class="fa-solid fa-plus"></i> Test Case</button>
+        </div>
     </div>
 
     {{-- Data Table --}}
@@ -55,10 +60,13 @@
                         </x-single-select-box>
 
                         {{-- Approval Request --}}
-                        <x-single-select-box label='Aproval from' model='tc_approval_from'>
+                        <x-single-select-box label='Aproval from' model='tc_approval_request'>
                             <option value="">Select</option>
-                            <option value="">User 1</option>
-                            <option value="">User 2</option>
+                            @isset($approval_users)
+                                @foreach ($approval_users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->username }}</option>
+                                @endforeach
+                            @endisset
                         </x-single-select-box>
                     </div>
 

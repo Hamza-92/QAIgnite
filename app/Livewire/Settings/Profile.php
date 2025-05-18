@@ -75,7 +75,7 @@ class Profile extends Component
 
         Organization::find($user->organization_id)->update(['name' => $validated['organization']]);
 
-        $this->dispatch('profile-updated', name: $user->name);
+        $this->dispatch('profile-updated');
         Toaster::success('Profile updated');
     }
 

@@ -87,11 +87,13 @@
                                         if ($secondsElapsed < 10) {
                                             echo 'Analyzing your requirements...';
                                         } elseif ($secondsElapsed < 20) {
-                                            echo 'Generating comprehensive test scenarios...';
+                                            echo 'Generating comprehensive test cases...';
                                         } elseif ($secondsElapsed < 40) {
                                             echo 'Finalizing test cases...';
-                                        } else {
+                                        } elseif ($secondsElapsed < 60) {
                                             echo 'Taking longer than expected. Almost done!';
+                                        } else {
+                                            echo 'This is taking longer than expected. Please bear with us!';
                                         }
                                     @endphp
                                     <p class="mt-2 text-xs text-blue-600 dark:text-blue-400">

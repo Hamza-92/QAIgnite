@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TestCase;
 
+use App\Mail\TestCaseApprovalRequest;
 use App\Models\Attachment;
 use App\Models\Build;
 use App\Models\Comment;
@@ -10,6 +11,8 @@ use App\Models\Requirement;
 use App\Models\TestCase;
 use App\Models\TestCaseVersion;
 use App\Models\TestScenario;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -60,6 +63,7 @@ class TestCases extends Component
         $this->loadFormModules();
         $this->loadFormRequirements();
         $this->loadFormTestScenarios();
+        $this->loadApprovalUsers();
 
         $this->create = session()->pull('create_test_case');
     }
@@ -89,6 +93,14 @@ class TestCases extends Component
         $this->tc_comment = '';
         $this->tempAttachments = [];
         $this->uploadedAttachments = [];
+    }
+
+    public $approval_users = [];
+    public function loadApprovalUsers()
+    {
+        $this->approval_users = User::whereHas('role', function ($query) {
+            $query->whereIn('name', ['admin', 'admin_tenant', 'qa_manager']);
+        })->get();
     }
 
     /* -- Form build field data halndling -- */
@@ -309,7 +321,7 @@ class TestCases extends Component
     public function save()
     {
         $this->validate([
-            'tc_name' => 'required|string|min:3|max:255|unique:test_cases,tc_name,' . ($this->test_case->id ?? 'NULL') . ',id',
+            'tc_name' => 'required|string|min:3|max:255|unique:test_cases,tc_name,'.($this->test_case->id ?? 'NULL').',id',
             'tc_description' => 'required|string|min:3|max:1000',
             'tc_status' => 'required|string|in:pending,approved,rejected',
             'tc_approval_request' => 'nullable|exists:users,id',
@@ -409,9 +421,16 @@ class TestCases extends Component
                     'user_id' => auth()->user()->id
                 ]);
             }
+            if ($this->tc_approval_request) {
+                $approver = User::find($this->tc_approval_request);
+                if ($approver) {
+                    Mail::to($approver->email)->send(
+                        new TestCaseApprovalRequest(auth()->user(), $this->test_case, $approver)
+                    );
+                }
+            }
             Toaster::success('Requirement added');
-        }
-        elseif ($this->edit) {
+        } elseif ($this->edit) {
             $attachmentIds = $this->test_case->tc_attachments ?? [];
             if ($this->uploadedAttachments) {
                 foreach ($this->uploadedAttachments as $attachment) {
@@ -487,6 +506,15 @@ class TestCases extends Component
                 'test_case_id' => $this->test_case->id,
                 'user_id' => auth()->user()->id
             ]);
+
+            if ($this->tc_approval_request) {
+                $approver = User::find($this->tc_approval_request);
+                if ($approver) {
+                    Mail::to($approver->email)->send(
+                        new TestCaseApprovalRequest(auth()->user(), $this->test_case, $approver)
+                    );
+                }
+            }
             Toaster::success('Test case updated successfully');
         }
         $this->dispatch('test_case_saved');

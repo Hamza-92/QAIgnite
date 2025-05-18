@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\AiTestCaseGenerator;
 
 use App\Jobs\ProcessTestCaseGeneration;
 use App\Models\AiTestGeneration;
@@ -72,7 +72,7 @@ class TestCaseGenerator extends Component
                 ]);
                 Comment::create([
                     'comment' => auth()->user()->username.' created test case.',
-                    'test_case_id' => $this->test_case->id,
+                    'test_case_id' => $test_case->id,
                     'user_id' => auth()->user()->id
                 ]);
                 Toaster::success('Test case successfully added.');
@@ -113,7 +113,7 @@ class TestCaseGenerator extends Component
                 ->where('tc_project_id', auth()->user()->default_project)
                 ->exists()) {
 
-                TestCase::create([
+                    $test_case = TestCase::create([
                     'tc_name' => $testCase['id'],
                     'tc_description' => $testCase['summary'],
                     'tc_status' => 'approved',
@@ -124,7 +124,7 @@ class TestCaseGenerator extends Component
                 ]);
                 Comment::create([
                     'comment' => auth()->user()->username.' created test case.',
-                    'test_case_id' => $this->test_case->id,
+                    'test_case_id' => $test_case->id,
                     'user_id' => auth()->user()->id
                 ]);
                 $importedCount++;
@@ -140,7 +140,7 @@ class TestCaseGenerator extends Component
         $this->selectedTestCases = [];
 
     } catch (Exception $e) {
-        Toaster::error('An error occurred while importing test cases: '.$e->getMessage());
+        Toaster::error('An error occurred while importing test cases');
     }
 }
 
@@ -150,7 +150,7 @@ class TestCaseGenerator extends Component
         try {
             foreach ($this->latestGeneration->response as $testCase) {
                 if (! TestCase::where('tc_name', $testCase['id'])->exists()) {
-                    TestCase::create([
+                    $test_case = TestCase::create([
                         'tc_name' => $testCase['id'],
                         'tc_description' => $testCase['summary'],
                         'tc_status' => 'approved',
@@ -161,7 +161,7 @@ class TestCaseGenerator extends Component
                     ]);
                     Comment::create([
                         'comment' => auth()->user()->username.' created test case.',
-                        'test_case_id' => $this->test_case->id,
+                        'test_case_id' => $test_case->id,
                         'user_id' => auth()->user()->id
                     ]);
                     $importedCount++;
@@ -173,16 +173,14 @@ class TestCaseGenerator extends Component
                 Toaster::info('All test cases has already been imported.');
             }
         } catch (Exception $e) {
-            Toaster::error('An error occurred while importing test cases: '.$e->getMessage());
+            Toaster::error('An error occurred while importing test cases.');
         }
     }
-
     public function render()
     {
         if ($this->latestGeneration) {
             $this->latestGeneration->refresh();
         }
-
-        return view('livewire.test-case-generator');
+        return view('livewire.ai-test-case-generator.test-case-generator');
     }
 }

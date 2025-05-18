@@ -1,4 +1,4 @@
-<th scope="col" class="px-4 py-3 font-medium cursor-pointer" wire:click="setSortBy('{{ $name }}')">
+<th scope="col" class="px-4 py-3 font-medium cursor-pointer text-left" wire:click="setSortBy('{{ $name }}')">
     <button class="flex items-center relative">
         {{ $displayName }}
 
