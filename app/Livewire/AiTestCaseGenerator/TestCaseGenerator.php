@@ -6,6 +6,7 @@ use App\Jobs\ProcessTestCaseGeneration;
 use App\Models\AiTestGeneration;
 use App\Models\Comment;
 use App\Models\TestCase;
+use App\Models\TestCaseVersion;
 use Exception;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
@@ -68,12 +69,24 @@ class TestCaseGenerator extends Component
                     'tc_project_id' => auth()->user()->default_project,
                     'tc_detailed_steps' => $testCase['steps'],
                     'tc_expected_results' => $testCase['expected'],
-                    'tc_created_by' => auth()->id()
+                    'tc_created_by' => auth()->id(),
+                    'tc_attachments' => []
                 ]);
                 Comment::create([
                     'comment' => auth()->user()->username.' created test case.',
                     'test_case_id' => $test_case->id,
                     'user_id' => auth()->user()->id
+                ]);
+                TestCaseVersion::create([
+                    'test_case_id' => $test_case->id,
+                    'tc_name' => $testCase['id'],
+                    'tc_description' => $testCase['summary'],
+                    'tc_status' => 'approved',
+                    'tc_project_id' => auth()->user()->default_project,
+                    'tc_detailed_steps' => $testCase['steps'],
+                    'tc_expected_results' => $testCase['expected'],
+                    'tc_created_by' => auth()->id(),
+                    'tc_attachments' => []
                 ]);
                 Toaster::success('Test case successfully added.');
             } else {
@@ -85,64 +98,76 @@ class TestCaseGenerator extends Component
     }
 
     public function importSelectedTestCases()
-{
-    if (!is_array($this->selectedTestCases)) {
-        $this->selectedTestCases = [];
-    }
+    {
+        if (! is_array($this->selectedTestCases)) {
+            $this->selectedTestCases = [];
+        }
 
-    $this->selectedTestCases = array_filter($this->selectedTestCases, function($item) {
-        return !empty($item);
-    });
+        $this->selectedTestCases = array_filter($this->selectedTestCases, function ($item) {
+            return ! empty($item);
+        });
 
-    if (empty($this->selectedTestCases)) {
-        Toaster::error('Please select the test cases to import.');
-        return;
-    }
+        if (empty($this->selectedTestCases)) {
+            Toaster::error('Please select the test cases to import.');
+            return;
+        }
 
-    $importedCount = 0;
+        $importedCount = 0;
 
-    try {
-        foreach ($this->selectedTestCases as $testCaseJson) {
-            $testCase = json_decode($testCaseJson, true);
+        try {
+            foreach ($this->selectedTestCases as $testCaseJson) {
+                $testCase = json_decode($testCaseJson, true);
 
-            if (!is_array($testCase)) {
-                continue;
-            }
+                if (! is_array($testCase)) {
+                    continue;
+                }
 
-            if (!TestCase::where('tc_name', $testCase['id'])
-                ->where('tc_project_id', auth()->user()->default_project)
-                ->exists()) {
+                if (! TestCase::where('tc_name', $testCase['id'])
+                    ->where('tc_project_id', auth()->user()->default_project)
+                    ->exists()) {
 
                     $test_case = TestCase::create([
-                    'tc_name' => $testCase['id'],
-                    'tc_description' => $testCase['summary'],
-                    'tc_status' => 'approved',
-                    'tc_project_id' => auth()->user()->default_project,
-                    'tc_detailed_steps' => $testCase['steps'],
-                    'tc_expected_results' => $testCase['expected'],
-                    'tc_created_by' => auth()->id()
-                ]);
-                Comment::create([
-                    'comment' => auth()->user()->username.' created test case.',
-                    'test_case_id' => $test_case->id,
-                    'user_id' => auth()->user()->id
-                ]);
-                $importedCount++;
+                        'tc_name' => $testCase['id'],
+                        'tc_description' => $testCase['summary'],
+                        'tc_status' => 'approved',
+                        'tc_project_id' => auth()->user()->default_project,
+                        'tc_detailed_steps' => $testCase['steps'],
+                        'tc_expected_results' => $testCase['expected'],
+                        'tc_created_by' => auth()->id(),
+                        'tc_attachments' => []
+                    ]);
+                    Comment::create([
+                        'comment' => auth()->user()->username.' created test case.',
+                        'test_case_id' => $test_case->id,
+                        'user_id' => auth()->user()->id
+                    ]);
+                    TestCaseVersion::create([
+                        'test_case_id' => $test_case->id,
+                        'tc_name' => $testCase['id'],
+                        'tc_description' => $testCase['summary'],
+                        'tc_status' => 'approved',
+                        'tc_project_id' => auth()->user()->default_project,
+                        'tc_detailed_steps' => $testCase['steps'],
+                        'tc_expected_results' => $testCase['expected'],
+                        'tc_created_by' => auth()->id(),
+                        'tc_attachments' => []
+                    ]);
+                    $importedCount++;
+                }
             }
+
+            if ($importedCount > 0) {
+                Toaster::success($importedCount.' test cases added successfully.');
+            } else {
+                Toaster::info('No new test cases were added.');
+            }
+
+            $this->selectedTestCases = [];
+
+        } catch (Exception $e) {
+            Toaster::error('An error occurred while importing test cases');
         }
-
-        if ($importedCount > 0) {
-            Toaster::success($importedCount.' test cases added successfully.');
-        } else {
-            Toaster::info('No new test cases were added.');
-        }
-
-        $this->selectedTestCases = [];
-
-    } catch (Exception $e) {
-        Toaster::error('An error occurred while importing test cases');
     }
-}
 
     public function importAllTestCases()
     {
@@ -157,7 +182,19 @@ class TestCaseGenerator extends Component
                         'tc_project_id' => auth()->user()->default_project,
                         'tc_detailed_steps' => $testCase['steps'],
                         'tc_expected_results' => $testCase['expected'],
-                        'tc_created_by' => auth()->id()
+                        'tc_created_by' => auth()->id(),
+                        'tc_attachments' => []
+                    ]);
+                    TestCaseVersion::create([
+                        'test_case_id' => $test_case->id,
+                        'tc_name' => $testCase['id'],
+                        'tc_description' => $testCase['summary'],
+                        'tc_status' => 'approved',
+                        'tc_project_id' => auth()->user()->default_project,
+                        'tc_detailed_steps' => $testCase['steps'],
+                        'tc_expected_results' => $testCase['expected'],
+                        'tc_created_by' => auth()->id(),
+                        'tc_attachments' => []
                     ]);
                     Comment::create([
                         'comment' => auth()->user()->username.' created test case.',

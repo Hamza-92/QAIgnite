@@ -36,23 +36,11 @@
 
                     this.chart = new ApexCharts(this.$refs.chart, this.getChartOptions());
                     this.chart.render();
-
-                    // Add click event handler
-                    // this.chart.w.globals.dom.Paper.node.addEventListener('click', (e) => {
-                    //     if (e.target.getAttribute('rel') === 'slice') {
-                    //         const sliceIndex = e.target.getAttribute('realIndex');
-                    //         const defectStatus = this.labels[sliceIndex];
-                    //         Livewire.dispatch('showDefectsByStatus', {
-                    //             defectStatus: defectStatus
-                    //         });
-                    //     }
-                    // });
                 },
 
                 getChartOptions() {
                     const textColor = this.isDark ? '#E5E7EB' : '#111827';
                     const backgroundColor = this.isDark ? '#1D2938' : '#FFFFFF';
-                    // const colors = ['#10B981', '#F59E0B', '#EF4444'];
 
                     return {
                         theme: {
@@ -309,8 +297,8 @@
                                     class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                                        <a class="underline hover:text-blue-500"
-                                            href="{{ route('defect.detail',[$defect->id]) }}" wire:navigate>
+                                        <a class="underline hover:text-blue-500" target="_blank"
+                                            href="{{ route('defect.detail',[$defect->id]) }}">
                                             {{ $defect->def_name }}
                                         </a>
                                     </td>

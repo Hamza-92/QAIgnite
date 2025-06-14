@@ -1,6 +1,6 @@
 <div x-data="{ open: window.innerWidth > 768 }" class="flex h-screen ">
     <!-- Sidebar -->
-    <aside :class="open ? 'w-64' : 'w-20'"
+    <aside :class="open ? 'w-72' : 'w-20'"
         class="h-screen border-r border-gray-200 dark:border-gray-700
                   transition-all duration-300 ease-in-out flex flex-col">
 
@@ -26,7 +26,7 @@
         <!-- Navigation Links -->
         <nav class="flex-1 flex flex-col p-4 space-y-2 overflow-y-auto">
             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                <i class="fa-solid fa-tachometer-alt"></i>
+                <i class="fa-solid fa-gauge"></i>
                 <span x-show="open">Dashboard</span>
             </x-nav-link>
 
@@ -38,8 +38,8 @@
             </div>
 
             {{-- Project Management --}}
-            <x-nav-link :href="route('projects')" :active="request()->routeIs('projects') | request()->routeIs('projects.archive')" wire:navigate>
-                <i class="fa-solid fa-project-diagram"></i>
+            <x-nav-link :href="route('projects')" :active="request()->routeIs('projects') || request()->routeIs('projects.archive')" wire:navigate>
+                <i class="fa-solid fa-diagram-project"></i>
                 <span x-show="open">Projects</span>
             </x-nav-link>
 
@@ -51,39 +51,45 @@
 
             {{-- Builds Management --}}
             <x-nav-link :href="route('builds')" :active="request()->routeIs('builds')" wire:navigate>
-                <i class="fa-solid fa-cogs"></i>
+                <i class="fa-solid fa-gears"></i>
                 <span x-show="open">Build</span>
             </x-nav-link>
 
             {{-- Modules Management --}}
             <x-nav-link :href="route('modules')" :active="request()->routeIs('modules')" wire:navigate>
-                <i class="fa-solid fa-cube"></i>
+                <i class="fa-solid fa-cubes"></i>
                 <span x-show="open">Module</span>
             </x-nav-link>
 
             {{-- Requirement Management --}}
             <x-nav-link :href="route('requirements')" :active="request()->routeIs('requirements') || request()->routeIs('requirement.detail')" wire:navigate>
-                <i class="fa-solid fa-cube"></i>
+                <i class="fa-solid fa-list-check"></i>
                 <span x-show="open">Requirements</span>
             </x-nav-link>
 
-            {{-- Test Case Management Section Title --}}
+            {{-- Test Lab Section Title --}}
             <div class="flex items-center text-gray-500 text-sm uppercase px-4 py-2">
                 <div class="flex-1 border-t border-gray-300"></div>
-                <span class="px-2" x-show="open">Test Case Management</span>
+                <span class="px-2" x-show="open">Test Lab</span>
                 <div class="flex-1 border-t border-gray-300"></div>
             </div>
 
             {{-- Test Scenarios --}}
             <x-nav-link :href="route('test-scenarios')" :active="request()->routeIs('test-scenarios') || request()->routeIs('test-scenario.detail')" wire:navigate>
-                <i class="fa-solid fa-cube"></i>
+                <i class="fa-solid fa-vial"></i>
                 <span x-show="open">Test Scenarios</span>
             </x-nav-link>
 
             {{-- Test Cases --}}
             <x-nav-link :href="route('test-cases')" :active="request()->routeIs('test-cases') || request()->routeIs('test-case.detail') || request()->routeIs('test-case.edit')" wire:navigate>
-                <i class="fa-solid fa-cube"></i>
+                <i class="fa-solid fa-file-lines"></i>
                 <span x-show="open">Test Cases</span>
+            </x-nav-link>
+
+            {{-- Test Cycle --}}
+            <x-nav-link :href="route('test-cycles')" :active="request()->routeIs('test-cycles') || request()->routeIs('test-cycle.create') || request()->routeIs('test-cycle.edit') || request()->routeIs('test-cycle.detail')" wire:navigate>
+                <i class="fa-solid fa-repeat"></i>
+                <span x-show="open">Test Cycle</span>
             </x-nav-link>
 
             {{-- Defect Management Section Title --}}
@@ -99,24 +105,12 @@
                 <span x-show="open">Defects</span>
             </x-nav-link>
 
-            {{-- Test Lab Section Title --}}
-            <div class="flex items-center text-gray-500 text-sm uppercase px-4 py-2">
-                <div class="flex-1 border-t border-gray-300"></div>
-                <span class="px-2" x-show="open">Test Lab</span>
-                <div class="flex-1 border-t border-gray-300"></div>
-            </div>
-
-            {{-- Test Cycle --}}
-            <x-nav-link :href="route('test-cycles')" :active="request()->routeIs('test-cycles') || request()->routeIs('test-cycle.create') || request()->routeIs('test-cycle.edit') || request()->routeIs('test-cycle.detail')" wire:navigate>
-                <i class="fa-solid fa-bug"></i>
-                <span x-show="open">Test Cycle</span>
-            </x-nav-link>
-
             {{-- Defect Report --}}
             <x-nav-link :href="route('reports.defect-report')" :active="request()->routeIs('reports.defect-report')" wire:navigate>
-                <i class="fa-solid fa-user-cog"></i>
+                <i class="fa-solid fa-chart-bar"></i>
                 <span x-show="open">Defect Report</span>
             </x-nav-link>
+
             {{-- Administration Section Title --}}
             <div class="flex items-center text-gray-500 text-sm uppercase px-4 py-2">
                 <div class="flex-1 border-t border-gray-300"></div>
@@ -125,20 +119,16 @@
             </div>
 
             {{-- Role Management --}}
-            <x-nav-link :href="route('roles')" :active="request()->routeIs('roles') |
-                request()->routeIs('role.create') |
-                request()->routeIs('role.edit')" wire:navigate>
+            <x-nav-link :href="route('roles')" :active="request()->routeIs('roles') || request()->routeIs('role.create') || request()->routeIs('role.edit')" wire:navigate>
                 <i class="fa-solid fa-user-shield"></i>
                 <span x-show="open">Role Management</span>
             </x-nav-link>
 
             {{-- User Management --}}
             <x-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
-                <i class="fa-solid fa-user-cog"></i>
+                <i class="fa-solid fa-user-gear"></i>
                 <span x-show="open">User Management</span>
             </x-nav-link>
-
-
         </nav>
 
         <!-- Logout -->

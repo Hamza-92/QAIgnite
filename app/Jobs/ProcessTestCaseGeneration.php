@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Masmerise\Toaster\Toaster;
 
-// app/Jobs/ProcessTestCaseGeneration.php
 class ProcessTestCaseGeneration implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -30,15 +29,15 @@ class ProcessTestCaseGeneration implements ShouldQueue
         $this->generation->update(['status' => 'processing']);
 
         try {
-            $response = Http::connectTimeout(10)
+            $response = Http::connectTimeout(2000)
                 ->retry(3, 1000)
                 ->withHeaders([
-                    'Authorization' => 'Bearer '.env('OPENROUTER_API_KEY'),
+                    'Authorization' => 'Bearer '.env('GITHUB_AI_KEY'),
                     'Content-Type' => 'application/json',
                     'HTTP-Referer' => config('app.url'),
                     'X-Title' => 'Test Case Generator',
-                ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                        'model' => 'deepseek/deepseek-r1:free',
+                ])->post('https://models.github.ai/inference/chat/completions', [
+                        'model' => 'openai/gpt-4.1',
                         'messages' => [
                             ['role' => 'system', 'content' => $this->getSystemPrompt()],
                             ['role' => 'user', 'content' => $this->generation->prompt],
